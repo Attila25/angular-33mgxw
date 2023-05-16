@@ -26,29 +26,27 @@ export class TeachersListComponent implements OnInit {
     'subjectId',
   ];
 
-  teachers$: Observable<TeacherModel[]> = this.store.pipe(
-    select(selectTeachers)
-  );
   private searchTerms = new Subject<string>();
 
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
+  teachers$: Observable<TeacherModel[]> = this.store.pipe(
+    select(selectTeachers)
+  );
+
   constructor(private teachersService: TeachersService, private store: Store) {}
 
   ngOnInit() {
-    this.store.dispatch(teachersRequestedAction());
-
     this.teachers$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
       debounceTime(300),
 
-      // ignore new term if same as previous term
       distinctUntilChanged(),
 
-      // switch to new search observable each time the term changes
       switchMap((term: string) => this.teachersService.searchTeachers(term))
     );
+
+    this.store.dispatch(teachersRequestedAction());
   }
 }

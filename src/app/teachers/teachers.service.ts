@@ -35,18 +35,6 @@ export class TeachersService {
     return this.requestService.get<TeacherModel[]>(TEACHER_URL, httpOptions);
   }
 
-  sgetTeacher(teacherId): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-    return this.requestService.get<TeacherModel>(
-      `${TEACHER_URL}/1`,
-      httpOptions
-    );
-  }
-
   getTeacher(id: number): Observable<any> {
     const url = `${TEACHER_URL}/${id}`;
     return this.requestService.get<TeacherModel>(url).pipe(
@@ -57,11 +45,11 @@ export class TeachersService {
 
   searchTeachers(term: string): Observable<TeacherModel[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
-      return of([]);
     }
     return this.requestService
-      .get<TeacherModel[]>(`${TEACHER_URL}/?name=${term}`)
+      .get<TeacherModel[]>(
+        `${TEACHER_URL}/?name=${term}`
+      )
       .pipe(
         tap((x) =>
           x.length
