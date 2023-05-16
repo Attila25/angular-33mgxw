@@ -31,6 +31,7 @@ export class SemesterEffects {
       ofType(SemesterActionTypes.semesterCreate),
       concatLatestFrom((action) => this.store.select(selectNextSemesterId)),
       switchMap(([action, id]) => {
+        console.log(action, id);
         return this.semestersService.createSemester(action).pipe(
           map((item: any) => {
             return semesterCreatedAction({

@@ -24,6 +24,7 @@ export class TeachersListComponent implements OnInit {
     'email',
     'position',
     'subjectId',
+    'subjects_t',
   ];
 
   private searchTerms = new Subject<string>();

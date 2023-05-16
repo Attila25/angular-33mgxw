@@ -34,8 +34,8 @@ export class SemestersCreateComponent implements OnInit {
         '',
         [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
       ],
-      start_date: [2023, [Validators.required]],
-      end_date: [2024, [Validators.required]],
+      start_date: [, [Validators.required]],
+      end_date: [, [Validators.required]],
     });
   }
 

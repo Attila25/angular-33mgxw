@@ -19,6 +19,7 @@ import * as fromTeachers from './store/teachers.reducer';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { TeacherSubjectListComponent } from './teachersubject-list/teachersubject-list.component';
+import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
 
 @NgModule({
   imports: [
@@ -43,6 +44,7 @@ import { TeacherSubjectListComponent } from './teachersubject-list/teachersubjec
     TeachersComponent,
     TeachersListComponent,
     TeacherSubjectListComponent,
+    TeachersCreateComponent,
   ],
   providers: [TeachersService],
 })

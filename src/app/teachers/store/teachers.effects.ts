@@ -55,8 +55,8 @@ export class TeacherEffects {
                 email: action.email,
                 position: action.position,
                 subjectId: action.subjectId,
-                subjects: [],
-                deleted: false,
+                subjects_t: action.subjects_t,
+                deleted: action.deleted,
               },
             });
           }),

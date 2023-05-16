@@ -18,63 +18,33 @@
       <mat-label>Teacher's name</mat-label>
       <input matInput placeholder="Name" formControlName="name" />
       <mat-hint>Give the teacher a name</mat-hint>
-      <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Teacher's email</mat-label>
-      <input matInput placeholder="Email" formControlName="email" />
+      <input
+        type="email"
+        matInput
+        placeholder="Email"
+        formControlName="email"
+      />
       <mat-hint>Give the teacher an email</mat-hint>
-      <mat-error *ngIf="email.invalid">{{ getNameErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Teacher's position</mat-label>
-      <input matInput placeholder="Position" formControlName="position" />
-      <mat-hint>Give the teacher a position</mat-hint>
-      <mat-error *ngIf="position.invalid">{{
-        getNameErrorMessage()
-      }}</mat-error>
-    </mat-form-field>
-  </div>
+  <select formControlName="position">
+    <option value="Associate Professor">Associate Professor</option>
+    <option value="Assistant Professor">Assistant Professor</option>
+    <option value="Master Teacher">Master Teacher</option>
+    <option value="Acting Expert">Acting Expert</option>
+    <option value="Teaching Assistant">Teaching Assistant</option>
+    <option value="Other">other</option>
+  </select>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Teacher's subjects</mat-label>
-      <input matInput placeholder="Subject" formControlName="subject" />
+      <input matInput placeholder="Subject" formControlName="subjectId" />
       <mat-hint>Give the teacher subjects</mat-hint>
-      <mat-error *ngIf="subject.invalid">{{ getNameErrorMessage() }}</mat-error>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Teacher's start date</mat-label>
-      <input
-        type="number"
-        matInput
-        placeholder="Start date"
-        formControlName="start_date"
-      />
-      <mat-hint>Give the teacher a start date</mat-hint>
-      <mat-error *ngIf="start_date.invalid">{{
-        getDescriptionErrorMessage()
-      }}</mat-error>
-    </mat-form-field>
-  </div>
-  <div>
-    <mat-form-field appearance="outline">
-      <mat-label>Teacher's end date</mat-label>
-      <input
-        type="number"
-        matInput
-        placeholder="End date"
-        formControlName="end_date"
-      />
-      <mat-hint>Give the teacher a end date</mat-hint>
-      <mat-error *ngIf="end_date.invalid">{{
-        getDescriptionErrorMessage()
-      }}</mat-error>
     </mat-form-field>
   </div>
   <button
