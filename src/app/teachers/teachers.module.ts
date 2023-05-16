@@ -19,7 +19,6 @@ import * as fromTeachers from './store/teachers.reducer';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { TeacherSubjectListComponent } from './teachersubject-list/teachersubject-list.component';
-import { TeacherSearchComponent } from './teacher-search/teacher-search.component';
 
 @NgModule({
   imports: [
@@ -44,7 +43,6 @@ import { TeacherSearchComponent } from './teacher-search/teacher-search.componen
     TeachersComponent,
     TeachersListComponent,
     TeacherSubjectListComponent,
-    TeacherSearchComponent,
   ],
   providers: [TeachersService],
 })

@@ -47,9 +47,7 @@ export class TeachersService {
     if (!term.trim()) {
     }
     return this.requestService
-      .get<TeacherModel[]>(
-        `${TEACHER_URL}/?name=${term}`
-      )
+      .get<TeacherModel[]>(`${TEACHER_URL}/?name=${term}`)
       .pipe(
         tap((x) =>
           x.length
