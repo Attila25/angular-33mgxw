@@ -1,0 +1,21 @@
+<mat-card *ngIf="event">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <i class="material-icons">event</i>
+    </div>
+    <mat-card-title>
+        <b>{{event.name}}</b>
+    </mat-card-title>
+    <mat-card-subtitle>Starts at {{event.start | date : 'yyyy-MM-dd'}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      {{event.description}}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-button [routerLink]="['/events']">
+        <b>Go back</b>
+      </a>
+  </mat-card-actions>
+</mat-card>

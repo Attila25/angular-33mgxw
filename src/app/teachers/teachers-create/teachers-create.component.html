@@ -1,0 +1,31 @@
+<h3>Add new Teacher</h3>
+<p>
+  <a mat-button routerLink="/teachers">
+    <b>Back to teachers</b>
+  </a>
+</p>
+<form [formGroup]="teachersForm" (ngSubmit)="onSubmit(teachersForm.value)">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Név</mat-label>
+      <input matInput placeholder="Name" />
+      <mat-label>Neptun kód</mat-label>
+      <input matInput placeholder="Neptun" />
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email" />
+      <mat-label>Pozíció</mat-label>
+      <input matInput placeholder="Pozíció" />
+      <mat-label>Tanított tárgyak</mat-label>
+      <input matInput placeholder="Tárgyak" />
+    </mat-form-field>
+  </div>
+  <button
+    mat-raised-button
+    color="primary"
+    type
+    [disabled]="teachersForm.invalid"
+  >
+    Create
+  </button>
+</form>
+<p>Form Status: {{ teachersForm.status }}</p>

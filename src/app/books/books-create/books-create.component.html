@@ -1,0 +1,19 @@
+<h3>Create new book</h3>
+<p>
+  <a mat-button routerLink="/authors">
+    <b>Back to books</b>
+  </a>
+</p>
+<form [formGroup]="booksForm" (ngSubmit)="onSubmit(booksForm.value)">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Book's title</mat-label>
+      <input matInput placeholder="Name" formControlName="title">
+      <mat-hint>Give the author a name</mat-hint>
+      </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type [disabled]="booksForm.invalid">Create</button>
+</form>
+<p>
+  Form Status: {{ booksForm.status }}
+</p>

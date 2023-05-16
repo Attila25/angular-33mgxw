@@ -1,0 +1,11 @@
+<mat-card *ngIf="teacher">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <i class="material-icons">event</i>
+    </div>
+    <mat-card-title>
+      <b>{{ teacher.name }}</b>
+    </mat-card-title>
+  </mat-card-header>
+</mat-card>
+<router-outlet></router-outlet>

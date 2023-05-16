@@ -1,0 +1,39 @@
+<h3>Create new event</h3>
+<p>
+  <a mat-button routerLink="/events">
+    <b>Back to events</b>
+  </a>
+</p>
+<p>
+  <mat-error *ngIf="eventForm.errors?.sameValue && (eventForm.touched || eventForm.dirty)">Don't be lazy! Give a proper description!</mat-error>
+</p>
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit(eventForm.value)">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Event's name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+      <mat-hint>Give the event a name</mat-hint>
+      <mat-error *ngIf="name.invalid">{{getNameErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Event's description</mat-label>
+      <input matInput placeholder="Description" formControlName="description">
+      <mat-hint>Give the event a description</mat-hint>
+      <mat-error *ngIf="description.invalid">{{getDescriptionErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Event's start time</mat-label>
+      <input matInput placeholder="Start" formControlName="start">
+      <mat-hint>Give the event a start time</mat-hint>
+      <mat-error *ngIf="start.invalid">{{getStartErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type [disabled]="eventForm.invalid">Create</button>
+</form>
+<p>
+  Form Status: {{ eventForm.status }}
+</p>
