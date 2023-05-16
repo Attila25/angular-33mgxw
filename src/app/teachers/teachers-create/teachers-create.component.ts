@@ -17,6 +17,7 @@ import { SubjectTable } from '../../data/subjects.data';
 import { SubjectModel } from '../../subjects/store/subjects.model';
 import { selectSubjects } from '../../subjects/store/subjects.selectors';
 import { Observable } from 'rxjs';
+import { subjectsRequestedAction } from '../../subjects/store/subjects.actions';
 
 @Component({
   selector: 'app-teachers-create',
@@ -26,7 +27,9 @@ import { Observable } from 'rxjs';
 export class TeachersCreateComponent implements OnInit {
   teachersForm: FormGroup;
 
-  subjects: Array<SubjectModel[]> = this.store.pipe(select(selectSubjects));
+  subjects: Observable<SubjectModel[]> = this.store.pipe(
+    select(selectSubjects)
+  );
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +47,14 @@ export class TeachersCreateComponent implements OnInit {
       email: [, [Validators.required]],
       position: [, [Validators.required]],
       subjectId: [, [Validators.required]],
+      subjects_t: [[], []],
     });
+
+    this.store.dispatch(subjectsRequestedAction());
+  }
+
+  getSubject(id: number): Observable<SubjectModel> {
+    return this.subjects.pipe(map((txs) => txs.find((txn) => txn.id === id)));
   }
 
   onSubmit(teacherData: any) {
@@ -56,8 +66,8 @@ export class TeachersCreateComponent implements OnInit {
       });
     } else {
       const subject = this.subjects.find((a) => a.id === teacherData.subjectId);
-      if (subject != undefined) teacherData.subjects_t.push(subject.name);
       console.log(subject.name);
+      if (subject != undefined) teacherData.subjects_t.push(subject.name);
     }
 
     this.store.dispatch(teacherCreateAction(teacherData));
