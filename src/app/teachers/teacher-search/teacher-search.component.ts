@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject} from 'rxjs';
 import { TeachersService } from '../teachers.service';
 import { selectTeachers } from '../store/teachers.selectors';
 import {
@@ -12,34 +12,22 @@ import { TeacherModel } from '../store/teachers.model';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-teachers-list',
-  templateUrl: './teachers-list.component.html',
-  styleUrls: ['./teachers-list.component.css'],
+  selector: 'app-teacher-search',
+  templateUrl: './teacher-search.component.html',
+  styleUrls: ['./teacher-search.component.css'],
 })
-export class TeachersListComponent implements OnInit {
-  displayedColumns: string[] = [
-    'id',
-    'neptun',
-    'name',
-    'email',
-    'position',
-    'subjectId',
-  ];
-
-  teachers$: Observable<TeacherModel[]> = this.store.pipe(
-    select(selectTeachers)
-  );
+export class TeacherSearchComponent implements OnInit {
+  teachers$!: Observable<TeacherModel[]>;
   private searchTerms = new Subject<string>();
 
+  constructor(private teachersService: TeachersService, private store: Store) {}
+
+  // Push a search term into the observable stream.
   search(term: string): void {
     this.searchTerms.next(term);
   }
 
-  constructor(private teachersService: TeachersService, private store: Store) {}
-
-  ngOnInit() {
-    this.store.dispatch(teachersRequestedAction());
-
+  ngOnInit(): void {
     this.teachers$ = this.searchTerms.pipe(
       // wait 300ms after each keystroke before considering the term
       debounceTime(300),
