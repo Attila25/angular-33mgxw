@@ -9,7 +9,9 @@ import { catchError, tap } from 'rxjs/operators';
 
 const SUBJECT_URL = 'api/subjects';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class SubjectsService {
   constructor(private requestService: RequestService, private store: Store) {}
 

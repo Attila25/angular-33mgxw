@@ -31,7 +31,7 @@ export class TeachersCreateComponent implements OnInit {
   subject: SubjectModel;
 
   constructor(
-    subjectsService: SubjectsService,
+    private subjectsService: SubjectsService,
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store
@@ -61,7 +61,7 @@ export class TeachersCreateComponent implements OnInit {
 
   onSubmit(teacherData: any) {
     teacherData.deleted = false;
-    teacherData.subjects_t.push(subject.name);
+    teacherData.subjects_t.push(this.subject.name);
     this.store.dispatch(teacherCreateAction(teacherData));
     this.teachersForm.reset();
     this.router.navigate(['/teachers']);
