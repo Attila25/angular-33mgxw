@@ -18,6 +18,7 @@ import { SubjectModel } from '../../subjects/store/subjects.model';
 import { selectSubjects } from '../../subjects/store/subjects.selectors';
 import { Observable } from 'rxjs';
 import { subjectsRequestedAction } from '../../subjects/store/subjects.actions';
+import { SubjectsService } from '../../subjects/subjects.service';
 
 @Component({
   selector: 'app-teachers-create',
@@ -27,11 +28,10 @@ import { subjectsRequestedAction } from '../../subjects/store/subjects.actions';
 export class TeachersCreateComponent implements OnInit {
   teachersForm: FormGroup;
 
-  subjects: Observable<SubjectModel[]> = this.store.pipe(
-    select(selectSubjects)
-  );
+  subject: SubjectModel;
 
   constructor(
+    subjectsService: SubjectsService,
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store
@@ -50,26 +50,18 @@ export class TeachersCreateComponent implements OnInit {
       subjects_t: [[], []],
     });
 
-    this.store.dispatch(subjectsRequestedAction());
+    this.getSubject();
   }
 
-  getSubject(id: number): Observable<SubjectModel> {
-    return this.subjects.pipe(map((txs) => txs.find((txn) => txn.id === id)));
+  getSubject(): void {
+    this.subjectsService
+      .getSubject(1)
+      .subscribe((subject) => (this.subject = subject));
   }
 
   onSubmit(teacherData: any) {
     teacherData.deleted = false;
-    if (teacherData.subjectId.length != 1) {
-      teacherData.subjectId.forEach((x) => {
-        const subject = this.subjects.find((a) => a.id === x);
-        if (subject != undefined) teacherData.subjects_t.push(subject.name);
-      });
-    } else {
-      const subject = this.subjects.find((a) => a.id === teacherData.subjectId);
-      console.log(subject.name);
-      if (subject != undefined) teacherData.subjects_t.push(subject.name);
-    }
-
+    teacherData.subjects_t.push(subject.name);
     this.store.dispatch(teacherCreateAction(teacherData));
     this.teachersForm.reset();
     this.router.navigate(['/teachers']);
