@@ -25,7 +25,6 @@ export class TeachersListComponent implements OnInit {
     'name',
     'email',
     'position',
-    'subjectId',
     'subjects_t',
   ];
 
