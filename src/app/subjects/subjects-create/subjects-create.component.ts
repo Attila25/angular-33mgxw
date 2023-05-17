@@ -20,8 +20,8 @@ import { Observable } from 'rxjs';
 import { subjectsRequestedAction } from '../../subjects/store/subjects.actions';
 import { SubjectsService } from '../../subjects/subjects.service';
 import { regExValidator } from '../../validators/regex.validator';
-import { SemesterModel } from 'src/app/semesters/store/semesters.model';
-import { SemestersService } from 'src/app/semesters/semesters.service';
+import { SemesterModel } from '../../semesters/store/semesters.model';
+import { SemestersService } from '../../semesters/semesters.service';
 
 @Component({
   selector: 'app-subjects-create',

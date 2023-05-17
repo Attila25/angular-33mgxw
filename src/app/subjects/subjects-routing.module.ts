@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../../app/auth/auth.guard';
-import { SubjectsCreateComponent } from './subject-create/subject-create.component';
+import { SubjectsCreateComponent } from './subjects-create/subjects-create.component';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { SubjectsComponent } from './subjects/subjects.component';
 

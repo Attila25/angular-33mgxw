@@ -18,7 +18,7 @@ import { SubjectEffects } from './store/subjects.effects';
 import * as fromSubjects from './store/subjects.reducer';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { SubjectsComponent } from './subjects/subjects.component';
-import { SubjectsCreateComponent } from './subject-create/subject-create.component';
+import { SubjectsCreateComponent } from './subjects-create/subjects-create.component';
 
 @NgModule({
   imports: [
