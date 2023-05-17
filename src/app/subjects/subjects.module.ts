@@ -18,6 +18,7 @@ import { SubjectEffects } from './store/subjects.effects';
 import * as fromSubjects from './store/subjects.reducer';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { SubjectsComponent } from './subjects/subjects.component';
+import { SubjectsCreateComponent } from './subject-create/subject-create.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,11 @@ import { SubjectsComponent } from './subjects/subjects.component';
     ),
     EffectsModule.forFeature([SubjectEffects]),
   ],
-  declarations: [SubjectsComponent, SubjectsListComponent],
+  declarations: [
+    SubjectsComponent,
+    SubjectsListComponent,
+    SubjectsCreateComponent,
+  ],
   providers: [SubjectsService],
 })
 export class SubjectsModule {}

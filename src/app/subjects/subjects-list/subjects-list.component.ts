@@ -19,6 +19,7 @@ export class SubjectsListComponent implements OnInit {
     'credit',
     'department',
     'semesterId',
+    'semesters_s',
   ];
 
   subjects$: Observable<SubjectModel[]> = this.store.pipe(

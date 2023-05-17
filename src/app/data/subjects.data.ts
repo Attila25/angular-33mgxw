@@ -7,7 +7,7 @@ export interface Subject {
   credit: number;
   department: string;
   semesterId: number[];
-  semesters_s: Semester[];
+  semesters_s: string[];
   deleted: boolean;
 }
 
@@ -50,7 +50,7 @@ export class SubjectTable {
       const semester = SemesterTable.semesters.find(
         (a) => a.id === subject.semesterId[x - 1]
       );
-      if (semester != undefined) subject.semesters_s.push(semester);
+      if (semester != undefined) subject.semesters_s.push(semester.name);
     });
 
     return subject;

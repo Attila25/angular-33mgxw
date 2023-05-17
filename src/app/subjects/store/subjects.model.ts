@@ -9,6 +9,6 @@ export class SubjectModel implements Subject {
   credit: number;
   department: string;
   semesterId: number[];
-  semesters_s: Semester[];
+  semesters_s: string[];
   deleted: boolean;
 }

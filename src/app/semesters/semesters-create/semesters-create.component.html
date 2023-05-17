@@ -9,7 +9,6 @@
     <mat-form-field appearance="outline">
       <mat-label>Semester's name</mat-label>
       <input matInput placeholder="Name" formControlName="name" />
-      <mat-hint>Give the semester a name</mat-hint>
       <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
@@ -17,14 +16,13 @@
     <mat-form-field appearance="outline">
       <mat-label>Semester's start date</mat-label>
       <input
-        type="datetime"
+        type="date"
         matInput
         placeholder="Start date"
         formControlName="start_date"
       />
-      <mat-hint>Give the semester a start date</mat-hint>
       <mat-error *ngIf="start_date.invalid">{{
-        getDescriptionErrorMessage()
+        getDateErrorMessage()
       }}</mat-error>
     </mat-form-field>
   </div>
@@ -32,14 +30,13 @@
     <mat-form-field appearance="outline">
       <mat-label>Semester's end date</mat-label>
       <input
-        type="datetime"
+        type="date"
         matInput
         placeholder="End date"
         formControlName="end_date"
       />
-      <mat-hint>Give the semester a end date</mat-hint>
       <mat-error *ngIf="end_date.invalid">{{
-        getDescriptionErrorMessage()
+        getDateErrorMessage()
       }}</mat-error>
     </mat-form-field>
   </div>

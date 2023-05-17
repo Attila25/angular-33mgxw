@@ -19,6 +19,7 @@ export class StudentsListComponent implements OnInit {
     'email',
     'course',
     'subjectId',
+    'subjects_s',
   ];
 
   students$: Observable<StudentModel[]> = this.store.pipe(

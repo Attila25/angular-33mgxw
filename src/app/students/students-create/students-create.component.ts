@@ -7,12 +7,12 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectNextTeacherId } from '../store/teachers.selectors';
+import { selectNextStudentId } from '../store/students.selectors';
 import {
-  TeacherActionTypes,
-  teachersLoadedAction,
-  teacherCreateAction,
-} from '../store/teachers.actions';
+  StudentActionTypes,
+  studentsLoadedAction,
+  studentCreateAction,
+} from '../store/students.actions';
 import { SubjectTable } from '../../data/subjects.data';
 import { SubjectModel } from '../../subjects/store/subjects.model';
 import { selectSubjects } from '../../subjects/store/subjects.selectors';
@@ -22,12 +22,12 @@ import { SubjectsService } from '../../subjects/subjects.service';
 import { regExValidator } from '../../validators/regex.validator';
 
 @Component({
-  selector: 'app-teachers-create',
-  templateUrl: './teachers-create.component.html',
-  styleUrls: ['./teachers-create.component.css'],
+  selector: 'app-students-create',
+  templateUrl: './students-create.component.html',
+  styleUrls: ['./students-create.component.css'],
 })
-export class TeachersCreateComponent implements OnInit {
-  teachersForm: FormGroup;
+export class StudentsCreateComponent implements OnInit {
+  studentsForm: FormGroup;
 
   subject: SubjectModel;
 
@@ -39,16 +39,16 @@ export class TeachersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.teachersForm = this.formBuilder.group({
+    this.studentsForm = this.formBuilder.group({
       neptun: [
         '',
         [Validators.required, regExValidator(/^(?!^\d)([a-zA-Z0-9]{6})$/i)],
       ],
       name: [, [Validators.required, Validators.maxLength(50)]],
       email: [, [Validators.required, Validators.email]],
-      position: [, [Validators.required]],
+      course: [, [Validators.required]],
       subjectId: [, [Validators.required]],
-      subjects_t: [[], []],
+      subjects_: [[], []],
     });
 
     this.getSubject();
@@ -60,28 +60,28 @@ export class TeachersCreateComponent implements OnInit {
       .subscribe((subject) => (this.subject = subject));
   }
 
-  onSubmit(teacherData: any) {
-    teacherData.deleted = false;
-    teacherData.subjects_t.push(this.subject.name);
-    this.store.dispatch(teacherCreateAction(teacherData));
-    this.teachersForm.reset();
-    this.router.navigate(['/teachers']);
+  onSubmit(studentData: any) {
+    studentData.deleted = false;
+    studentData.subjects_s.push(this.subject.name);
+    this.store.dispatch(studentCreateAction(studentData));
+    this.studentsForm.reset();
+    this.router.navigate(['/students']);
   }
 
   get neptun() {
-    return this.teachersForm.get('neptun');
+    return this.studentsForm.get('neptun');
   }
   get name() {
-    return this.teachersForm.get('name');
+    return this.studentsForm.get('name');
   }
   get email() {
-    return this.teachersForm.get('email');
+    return this.studentsForm.get('email');
   }
-  get position() {
-    return this.teachersForm.get('position');
+  get course() {
+    return this.studentsForm.get('course');
   }
   get subjectId() {
-    return this.teachersForm.get('subjectId');
+    return this.studentsForm.get('subjectId');
   }
 
   getNeptunErrorMessage() {
@@ -98,11 +98,8 @@ export class TeachersCreateComponent implements OnInit {
       if (this.name.hasError('maxlength'))
         return 'You can enter at most 50 characters!';
     }
-    if (this.email.dirty || this.email.touched) {
-      if (this.email.hasError('required')) return 'You must enter a value!';
-    }
-    if (this.position.dirty || this.position.touched) {
-      if (this.position.hasError('required')) return 'You must enter a value!';
+    if (this.course.dirty || this.course.touched) {
+      if (this.course.hasError('required')) return 'You must enter a value!';
     }
     if (this.email.dirty || this.email.touched) {
       if (this.email.hasError('email')) return 'You must enter a valid email!';

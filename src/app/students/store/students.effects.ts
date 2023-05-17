@@ -40,9 +40,9 @@ export class StudentEffects {
                 neptun: action.neptun,
                 name: action.name,
                 email: action.email,
-                position: action.position,
+                course: action.course,
                 subjectId: action.subjectId,
-                subjects: [],
+                subjects_s: [],
                 deleted: false,
               },
             });

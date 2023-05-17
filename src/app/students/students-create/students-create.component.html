@@ -1,13 +1,13 @@
-<h3>Create new teacher</h3>
+<h3>Create new student</h3>
 <p>
-  <a mat-button routerLink="/teachers">
-    <b>Back to teachers</b>
+  <a mat-button routerLink="/students">
+    <b>Back to students</b>
   </a>
 </p>
-<form [formGroup]="teachersForm" (ngSubmit)="onSubmit(teachersForm.value)">
+<form [formGroup]="studentsForm" (ngSubmit)="onSubmit(studentsForm.value)">
   <div>
     <mat-form-field appearance="outline">
-      <mat-label>Teacher's neptun</mat-label>
+      <mat-label>Student's neptun</mat-label>
       <input matInput placeholder="Neptun" formControlName="neptun" />
       <mat-error *ngIf="neptun.invalid">{{
         getNeptunErrorMessage()
@@ -16,14 +16,14 @@
   </div>
   <div>
     <mat-form-field appearance="outline">
-      <mat-label>Teacher's name</mat-label>
+      <mat-label>Student's name</mat-label>
       <input matInput placeholder="Name" formControlName="name" />
       <mat-error *ngIf="name.invalid">{{ getNameErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
   <div>
     <mat-form-field appearance="outline">
-      <mat-label>Teacher's email</mat-label>
+      <mat-label>Student's email</mat-label>
       <input
         type="email"
         matInput
@@ -33,18 +33,17 @@
       <mat-error *ngIf="email.invalid">{{ getNameErrorMessage() }}</mat-error>
     </mat-form-field>
   </div>
-  <label>Position: </label>
-  <select formControlName="position">
-    <option value="Associate Professor">Associate Professor</option>
-    <option value="Assistant Professor">Assistant Professor</option>
-    <option value="Master Teacher">Master Teacher</option>
-    <option value="Acting Expert">Acting Expert</option>
-    <option value="Teaching Assistant">Teaching Assistant</option>
-    <option value="Other">other</option>
+  <label>Course: </label>
+  <select formControlName="course">
+    <option value="Computer Engineer Msc">Computer Engineer Msc</option>
+    <option value="Computer Programmer Msc">Computer Programmer Msc</option>
+    <option value="Computer Engineer Bsc">Computer Engineer Bsc</option>
+    <option value="Computer Programmer Bsc">Computer Programmer Bsc</option>
+    <option value="Computer Economist Bsc">Computer Economist Bsc</option>
   </select>
   <div>
     <mat-form-field appearance="outline">
-      <mat-label>Teacher's subjects</mat-label>
+      <mat-label>Student's subjects</mat-label>
       <input matInput placeholder="Subject" formControlName="subjectId" />
     </mat-form-field>
   </div>
@@ -52,9 +51,9 @@
     mat-raised-button
     color="primary"
     type
-    [disabled]="teachersForm.invalid"
+    [disabled]="studentsForm.invalid"
   >
     Create
   </button>
 </form>
-<p>Form Status: {{ teachersForm.status }}</p>
+<p>Form Status: {{ studentsForm.status }}</p>

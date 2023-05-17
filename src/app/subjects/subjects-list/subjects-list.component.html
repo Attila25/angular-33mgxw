@@ -35,6 +35,11 @@
     <td mat-cell *matCellDef="let element">{{ element.semesterId }}</td>
   </ng-container>
 
+  <ng-container matColumnDef="semesters_s">
+    <th mat-header-cell *matHeaderCellDef>Semester name</th>
+    <td mat-cell *matCellDef="let element">{{ element.semesters_s }}</td>
+  </ng-container>
+
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>

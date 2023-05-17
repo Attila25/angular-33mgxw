@@ -13,6 +13,7 @@ import {
   semestersLoadedAction,
   semesterCreateAction,
 } from '../store/semesters.actions';
+import { regExValidator } from '../../validators/regex.validator';
 
 @Component({
   selector: 'app-semesters-create',
@@ -32,8 +33,9 @@ export class SemestersCreateComponent implements OnInit {
     this.semestersForm = this.formBuilder.group({
       name: [
         '',
-        [Validators.required, Validators.minLength(9), Validators.maxLength(9)],
+        [Validators.required, regExValidator(/^(?:20\d{2}\/\d{2}\/[1-9])$/i)],
       ],
+
       start_date: [, [Validators.required]],
       end_date: [, [Validators.required]],
     });
@@ -58,20 +60,18 @@ export class SemestersCreateComponent implements OnInit {
 
   getNameErrorMessage() {
     if (this.name.dirty || this.name.touched) {
-      if (this.name.hasError('minLength'))
-        return 'You have to enter 9 characters!';
-      if (this.name.hasError('maxLength'))
-        return 'You have to enter 9 characters!';
+      if (this.name.hasError('regEx')) return 'Format: YYYY/YY/Semester';
     }
+
     return '';
   }
-
-  getDescriptionErrorMessage() {
+  getDateErrorMessage() {
     if (this.start_date.dirty || this.start_date.touched) {
       if (this.start_date.hasError('required'))
         return 'You must enter a value!';
-      if (this.start_date.hasError('maxlength'))
-        return 'You can enter at most 100 characters!';
+    }
+    if (this.end_date.dirty || this.end_date.touched) {
+      if (this.end_date.hasError('required')) return 'You must enter a value!';
     }
     return '';
   }

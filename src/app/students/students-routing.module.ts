@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../../app/auth/auth.guard';
+import { StudentsCreateComponent } from './students-create/students-create.component';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { StudentsComponent } from './students/students.component';
 
@@ -18,6 +19,10 @@ const routes: Routes = [
           {
             path: '',
             component: StudentsListComponent,
+          },
+          {
+            path: 'create',
+            component: StudentsCreateComponent,
           },
           /*{
           path: 'details/:eventId',

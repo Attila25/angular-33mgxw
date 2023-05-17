@@ -18,6 +18,7 @@ import { StudentEffects } from './store/students.effects';
 import * as fromStudents from './store/students.reducer';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { StudentsComponent } from './students/students.component';
+import { StudentsCreateComponent } from './students-create/students-create.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,11 @@ import { StudentsComponent } from './students/students.component';
     ),
     EffectsModule.forFeature([StudentEffects]),
   ],
-  declarations: [StudentsComponent, StudentsListComponent],
+  declarations: [
+    StudentsComponent,
+    StudentsListComponent,
+    StudentsCreateComponent,
+  ],
   providers: [StudentsService],
 })
 export class StudentsModule {}
