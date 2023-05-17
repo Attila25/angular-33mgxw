@@ -49,8 +49,8 @@ export class SubjectsCreateComponent implements OnInit {
       name: [, [Validators.required, Validators.maxLength(50)]],
       credit: [, [Validators.required]],
       department: [, [Validators.required]],
-      subjectId: [, [Validators.required]],
-      subjects_s: [[], []],
+      semesterId: [, [Validators.required]],
+      semesters_s: [[], []],
     });
 
     this.getSemester();

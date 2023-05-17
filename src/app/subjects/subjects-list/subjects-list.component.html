@@ -4,42 +4,47 @@
   </a>
 </div>
 
-<table mat-table [dataSource]="subjects$" class="mat-elevation-z8">
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Id</th>
-    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-  </ng-container>
+<div style="margin-bottom: 10px">
+  <label for="search-box">Subject Search </label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
-  <ng-container matColumnDef="neptun">
-    <th mat-header-cell *matHeaderCellDef>Npetun</th>
-    <td mat-cell *matCellDef="let element">{{ element.neptun }}</td>
-  </ng-container>
+  <table mat-table [dataSource]="subjects$" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-  </ng-container>
+    <ng-container matColumnDef="neptun">
+      <th mat-header-cell *matHeaderCellDef>Npetun</th>
+      <td mat-cell *matCellDef="let element">{{ element.neptun }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="credit">
-    <th mat-header-cell *matHeaderCellDef>Credit</th>
-    <td mat-cell *matCellDef="let element">{{ element.credit }}</td>
-  </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="department">
-    <th mat-header-cell *matHeaderCellDef>Department</th>
-    <td mat-cell *matCellDef="let element">{{ element.department }}</td>
-  </ng-container>
+    <ng-container matColumnDef="credit">
+      <th mat-header-cell *matHeaderCellDef>Credit</th>
+      <td mat-cell *matCellDef="let element">{{ element.credit }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="semesterId">
-    <th mat-header-cell *matHeaderCellDef>Semester Id</th>
-    <td mat-cell *matCellDef="let element">{{ element.semesterId }}</td>
-  </ng-container>
+    <ng-container matColumnDef="department">
+      <th mat-header-cell *matHeaderCellDef>Department</th>
+      <td mat-cell *matCellDef="let element">{{ element.department }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="semesters_s">
-    <th mat-header-cell *matHeaderCellDef>Semester name</th>
-    <td mat-cell *matCellDef="let element">{{ element.semesters_s }}</td>
-  </ng-container>
+    <ng-container matColumnDef="semesterId">
+      <th mat-header-cell *matHeaderCellDef>Semester Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.semesterId }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <ng-container matColumnDef="semesters_s">
+      <th mat-header-cell *matHeaderCellDef>Semester name</th>
+      <td mat-cell *matCellDef="let element">{{ element.semesters_s }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

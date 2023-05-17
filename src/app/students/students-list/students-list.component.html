@@ -4,42 +4,47 @@
   </a>
 </div>
 
-<table mat-table [dataSource]="students$" class="mat-elevation-z8">
-  <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef>Id</th>
-    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
-  </ng-container>
+<div style="margin-bottom: 10px">
+  <label for="search-box">Student Search </label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
 
-  <ng-container matColumnDef="neptun">
-    <th mat-header-cell *matHeaderCellDef>Npetun</th>
-    <td mat-cell *matCellDef="let element">{{ element.neptun }}</td>
-  </ng-container>
+  <table mat-table [dataSource]="students$" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="name">
-    <th mat-header-cell *matHeaderCellDef>Name</th>
-    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-  </ng-container>
+    <ng-container matColumnDef="neptun">
+      <th mat-header-cell *matHeaderCellDef>Neptun</th>
+      <td mat-cell *matCellDef="let element">{{ element.neptun }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="email">
-    <th mat-header-cell *matHeaderCellDef>Email</th>
-    <td mat-cell *matCellDef="let element">{{ element.email }}</td>
-  </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="course">
-    <th mat-header-cell *matHeaderCellDef>Course</th>
-    <td mat-cell *matCellDef="let element">{{ element.course }}</td>
-  </ng-container>
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="subjectId">
-    <th mat-header-cell *matHeaderCellDef>Subject Id</th>
-    <td mat-cell *matCellDef="let element">{{ element.subjectId }}</td>
-  </ng-container>
+    <ng-container matColumnDef="course">
+      <th mat-header-cell *matHeaderCellDef>Course</th>
+      <td mat-cell *matCellDef="let element">{{ element.course }}</td>
+    </ng-container>
 
-  <ng-container matColumnDef="subjects_s">
-    <th mat-header-cell *matHeaderCellDef>Subjects</th>
-    <td mat-cell *matCellDef="let element">{{ element.subjects_s }}</td>
-  </ng-container>
+    <ng-container matColumnDef="subjectId">
+      <th mat-header-cell *matHeaderCellDef>Subject Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.subjectId }}</td>
+    </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <ng-container matColumnDef="subjects_s">
+      <th mat-header-cell *matHeaderCellDef>Subjects</th>
+      <td mat-cell *matCellDef="let element">{{ element.subjects_s }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

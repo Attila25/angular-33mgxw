@@ -45,6 +45,21 @@ export class SemestersService {
     );
   }
 
+  searchSemesters(term: string): Observable<SemesterModel[]> {
+    if (!term.trim()) {
+    }
+    return this.requestService
+      .get<SemesterModel[]>(`${SEMESTER_URL}/?name=${term}`)
+      .pipe(
+        tap((x) =>
+          x.length
+            ? console.log(`found semesters matching "${term}"`)
+            : console.log(`no semesters matching "${term}"`)
+        ),
+        catchError(this.handleError<SemesterModel[]>('searchSemesters', []))
+      );
+  }
+
   createSemester(semester: SemesterModel): Observable<any> {
     return this.requestService.post(`${SEMESTER_URL}/`, semester);
   }

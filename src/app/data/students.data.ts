@@ -55,9 +55,7 @@ export class StudentTable {
   ];
   public static students: Student[] = StudentTable._students.map((student) => {
     student.subjectId.forEach((x) => {
-      const subject = SubjectTable._subjects.find(
-        (a) => a.id === student.subjectId[x - 1]
-      );
+      const subject = SubjectTable._subjects.find((a) => a.id === x);
       if (subject != undefined) student.subjects_s.push(subject.name);
     });
     return student;

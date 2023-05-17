@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { TeachersService } from '../teachers.service';
@@ -31,23 +31,28 @@ export class TeachersListComponent implements OnInit {
 
   search(term: string): void {
     this.searchTerms.next(term);
+    this.searchT();
   }
 
   teachers$: Observable<TeacherModel[]> = this.store.pipe(
     select(selectTeachers)
   );
 
+  teachers_s$: Observable<TeacherModel[]>;
+
   constructor(private teachersService: TeachersService, private store: Store) {}
 
   ngOnInit() {
-    this.teachers$ = this.searchTerms.pipe(
+    this.teachers_s$ = this.searchTerms.pipe(
       debounceTime(300),
 
       distinctUntilChanged(),
 
       switchMap((term: string) => this.teachersService.searchTeachers(term))
     );
-
     this.store.dispatch(teachersRequestedAction());
+  }
+  searchT() {
+    this.teachers$ = this.teachers_s$;
   }
 }

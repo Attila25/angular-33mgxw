@@ -37,6 +37,21 @@ export class SubjectsService {
     return this.requestService.get<SubjectModel[]>(SUBJECT_URL, httpOptions);
   }
 
+  searchSubjects(term: string): Observable<SubjectModel[]> {
+    if (!term.trim()) {
+    }
+    return this.requestService
+      .get<SubjectModel[]>(`${SUBJECT_URL}/?name=${term}`)
+      .pipe(
+        tap((x) =>
+          x.length
+            ? console.log(`found teachers matching "${term}"`)
+            : console.log(`no teachers matching "${term}"`)
+        ),
+        catchError(this.handleError<SubjectModel[]>('searchTeachers', []))
+      );
+  }
+
   getSubject(id: number): Observable<any> {
     const url = `${SUBJECT_URL}/${id}`;
     return this.requestService.get<SubjectModel>(url).pipe(

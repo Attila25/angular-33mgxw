@@ -47,9 +47,7 @@ export class SubjectTable {
 
   public static subjects: Subject[] = SubjectTable._subjects.map((subject) => {
     subject.semesterId.forEach((x) => {
-      const semester = SemesterTable.semesters.find(
-        (a) => a.id === subject.semesterId[x - 1]
-      );
+      const semester = SemesterTable.semesters.find((a) => a.id === x);
       if (semester != undefined) subject.semesters_s.push(semester.name);
     });
 
