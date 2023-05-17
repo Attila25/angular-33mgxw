@@ -68,6 +68,10 @@ export class TeachersListComponent implements OnInit {
 
   searchT() {
     this.teachers$ = this.teachers_s$;
+
+    this.teachers$.subscribe(
+      (data) => (this.dataSource = new MatTableDataSource(data))
+    );
   }
 
   announceSortChange(sortState: Sort) {
