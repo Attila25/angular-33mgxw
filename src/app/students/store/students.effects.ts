@@ -40,6 +40,31 @@ export class StudentEffects {
     )
   );
 
+  updateStudent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StudentActionTypes.studentUpdate),
+      switchMap((action) => {
+        return this.studentsService.updateStudent(action).pipe(
+          map((item: any) => {
+            return studentUpdatedAction({
+              student: {
+                id: action.id,
+                neptun: action.neptun,
+                name: action.name,
+                email: action.email,
+                course: action.course,
+                subjectId: action.subjectId,
+                subjects_s: action.subjects_s,
+                deleted: false,
+              },
+            });
+          }),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
+
   createStudent$ = createEffect(() =>
     this.actions$.pipe(
       ofType(StudentActionTypes.studentCreate),
