@@ -5,13 +5,18 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { selectNextStudentId } from '../store/students.selectors';
+import {
+  selectLoadedStudent,
+  selectNextStudentId,
+} from '../store/students.selectors';
 import {
   StudentActionTypes,
   studentsLoadedAction,
   studentCreateAction,
+  studentRequestedAction,
+  studentUpdateAction,
 } from '../store/students.actions';
 import { SubjectTable } from '../../data/subjects.data';
 import { SubjectModel } from '../../subjects/store/subjects.model';
@@ -20,21 +25,23 @@ import { Observable } from 'rxjs';
 import { subjectsRequestedAction } from '../../subjects/store/subjects.actions';
 import { SubjectsService } from '../../subjects/subjects.service';
 import { regExValidator } from '../../validators/regex.validator';
+import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-students-create',
-  templateUrl: './students-create.component.html',
-  styleUrls: ['./students-create.component.css'],
+  selector: 'app-students-update',
+  templateUrl: './students-update.component.html',
+  styleUrls: ['./students-update.component.css'],
 })
-export class StudentsCreateComponent implements OnInit {
+export class StudentsUpdateComponent implements OnInit {
   studentsForm: FormGroup;
-
   subjectConv: SubjectModel[];
 
   subjects$: Observable<SubjectModel[]> = this.store.pipe(
     select(selectSubjects)
   );
+
   constructor(
+    private route: ActivatedRoute,
     private subjectsService: SubjectsService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -42,7 +49,28 @@ export class StudentsCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.route.paramMap
+      .pipe(
+        map((params) => {
+          return this.store.dispatch(
+            studentRequestedAction({ studentId: +params.get('studentId') })
+          );
+        })
+      )
+      .subscribe();
+    this.store.pipe(select(selectLoadedStudent)).subscribe((student) => {
+      if (student && this.studentsForm) {
+        this.studentsForm.controls.id.setValue(student.id);
+        this.studentsForm.controls.neptun.setValue(student.neptun);
+        this.studentsForm.controls.name.setValue(student.name);
+        this.studentsForm.controls.email.setValue(student.email);
+        this.studentsForm.controls.course.setValue(student.course);
+        this.studentsForm.controls.subjectId.setValue(student.subjectId);
+      }
+    });
+
     this.studentsForm = this.formBuilder.group({
+      id: [{ value: 0, disabled: true }, [Validators.required]],
       neptun: [
         '',
         [Validators.required, regExValidator(/^(?!^\d)([a-zA-Z0-9]{6})$/i)],
@@ -52,6 +80,7 @@ export class StudentsCreateComponent implements OnInit {
       course: [, [Validators.required]],
       subjectId: [, [Validators.required]],
       subjects_s: [[], []],
+      deleted: [false],
     });
 
     this.store.dispatch(subjectsRequestedAction());
@@ -71,7 +100,7 @@ export class StudentsCreateComponent implements OnInit {
       if (subject != undefined) studentData.subjects_s.push(subject.name);
     });
 
-    this.store.dispatch(studentCreateAction(studentData));
+    this.store.dispatch(studentUpdateAction(studentData));
     this.studentsForm.reset();
     this.router.navigate(['/students']);
   }

@@ -6,6 +6,10 @@ export enum StudentActionTypes {
   studentsLoaded = '[Students] Students Loaded',
   studentCreate = '[Students] Student Create',
   studentCreated = '[Students] Student Created',
+  studentRequested = '[Students] Student Requested',
+  studentLoaded = '[Students] Student Loaded',
+  studentUpdate = '[Students] Student Update',
+  studentUpdated = '[Students] Student Updated',
 }
 
 export const studentsRequestedAction = createAction(
@@ -14,6 +18,22 @@ export const studentsRequestedAction = createAction(
 export const studentsLoadedAction = createAction(
   StudentActionTypes.studentsLoaded,
   props<{ students: StudentModel[] }>()
+);
+export const studentRequestedAction = createAction(
+  StudentActionTypes.studentRequested,
+  props<{ studentId: number }>()
+);
+export const studentLoadedAction = createAction(
+  StudentActionTypes.studentLoaded,
+  props<{ student: StudentModel }>()
+);
+export const studentUpdateAction = createAction(
+  StudentActionTypes.studentUpdate,
+  props<{ student: StudentModel }>()
+);
+export const studentUpdatedAction = createAction(
+  StudentActionTypes.studentUpdated,
+  props<{ student: StudentModel }>()
 );
 export const studentCreateAction = createAction(
   StudentActionTypes.studentCreate,

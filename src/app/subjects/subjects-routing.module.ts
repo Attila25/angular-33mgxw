@@ -5,6 +5,7 @@ import { AuthGuard } from '../../app/auth/auth.guard';
 import { SubjectsCreateComponent } from './subjects-create/subjects-create.component';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { SubjectsComponent } from './subjects/subjects.component';
+import { SubjectsUpdateComponent } from './subjects-update/subjects-update.component';
 
 const routes: Routes = [
   {
@@ -24,10 +25,10 @@ const routes: Routes = [
             path: 'create',
             component: SubjectsCreateComponent,
           },
-          /*{
-          path: 'details/:eventId',
-          component: EventDetailsComponent
-        },*/
+          {
+            path: 'edit/:subjectId',
+            component: SubjectsUpdateComponent,
+          },
         ],
       },
     ],

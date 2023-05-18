@@ -7,22 +7,16 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
+import { selectLoadedSubject } from '../store/subjects.selectors';
 import {
-  selectLoadedSubject,
-  selectNextSubjectId,
-} from '../store/subjects.selectors';
-import {
-  SubjectActionTypes,
-  subjectsLoadedAction,
-  subjectCreateAction,
   subjectRequestedAction,
   subjectUpdateAction,
 } from '../store/subjects.actions';
-import { SubjectTable } from '../../data/subjects.data';
-import { SubjectModel } from '../../subjects/store/subjects.model';
-import { selectSubjects } from '../../subjects/store/subjects.selectors';
+
 import { Observable } from 'rxjs';
-import { subjectsRequestedAction } from '../../subjects/store/subjects.actions';
+import { SemesterModel } from '../../semesters/store/semesters.model';
+import { selectSemesters } from '../../semesters/store/semesters.selectors';
+import { semestersRequestedAction } from '../../semesters/store/semesters.actions';
 import { SubjectsService } from '../../subjects/subjects.service';
 import { regExValidator } from '../../validators/regex.validator';
 import { map } from 'rxjs/operators';
@@ -34,15 +28,14 @@ import { map } from 'rxjs/operators';
 })
 export class SubjectsUpdateComponent implements OnInit {
   subjectsForm: FormGroup;
-  subjectConv: SubjectModel[];
+  semesterConv: SemesterModel[];
 
-  subjects$: Observable<SubjectModel[]> = this.store.pipe(
-    select(selectSubjects)
+  semesters$: Observable<SemesterModel[]> = this.store.pipe(
+    select(selectSemesters)
   );
 
   constructor(
     private route: ActivatedRoute,
-    private subjectsService: SubjectsService,
     private formBuilder: FormBuilder,
     private router: Router,
     private store: Store
@@ -63,9 +56,9 @@ export class SubjectsUpdateComponent implements OnInit {
         this.subjectsForm.controls.id.setValue(subject.id);
         this.subjectsForm.controls.neptun.setValue(subject.neptun);
         this.subjectsForm.controls.name.setValue(subject.name);
-        this.subjectsForm.controls.email.setValue(subject.email);
-        this.subjectsForm.controls.position.setValue(subject.position);
-        this.subjectsForm.controls.subjectId.setValue(subject.subjectId);
+        this.subjectsForm.controls.credit.setValue(subject.credit);
+        this.subjectsForm.controls.department.setValue(subject.department);
+        this.subjectsForm.controls.semesterId.setValue(subject.semesterId);
       }
     });
 
@@ -76,28 +69,27 @@ export class SubjectsUpdateComponent implements OnInit {
         [Validators.required, regExValidator(/^(?!^\d)([a-zA-Z0-9]{6})$/i)],
       ],
       name: [, [Validators.required, Validators.maxLength(50)]],
-      email: [, [Validators.required, Validators.email]],
-      position: [, [Validators.required]],
-      subjectId: [, [Validators.required]],
-      subjects_t: [[], []],
-      deleted: [false],
+      credit: [, [Validators.required]],
+      department: [, [Validators.required]],
+      semesterId: [, [Validators.required]],
+      semesters_s: [[], []],
     });
 
-    this.store.dispatch(subjectsRequestedAction());
+    this.store.dispatch(semestersRequestedAction());
   }
 
   onSubmit(subjectData: any) {
-    this.subjects$.subscribe((subject) => {
-      this.subjectConv = subject as SubjectModel[];
+    this.semesters$.subscribe((semester) => {
+      this.semesterConv = semester as SemesterModel[];
     });
 
     subjectData.deleted = false;
-    subjectData.subjectIds = subjectData.subjectId.split(',');
+    subjectData.semesterIds = subjectData.semesterId.split(',');
 
-    subjectData.subjectIds.forEach((x) => {
-      const subject = this.subjectConv.find((y) => y.id == x);
-      console.log(this.subjectConv);
-      if (subject != undefined) subjectData.subjects_t.push(subject.name);
+    subjectData.semesterIds.forEach((x) => {
+      const semester = this.semesterConv.find((y) => y.id == x);
+
+      if (semester != undefined) subjectData.semesters_s.push(semester.name);
     });
 
     this.store.dispatch(subjectUpdateAction(subjectData));
@@ -111,14 +103,14 @@ export class SubjectsUpdateComponent implements OnInit {
   get name() {
     return this.subjectsForm.get('name');
   }
-  get email() {
-    return this.subjectsForm.get('email');
+  get credit() {
+    return this.subjectsForm.get('credit');
   }
-  get position() {
-    return this.subjectsForm.get('position');
+  get department() {
+    return this.subjectsForm.get('department');
   }
-  get subjectId() {
-    return this.subjectsForm.get('subjectId');
+  get semesterId() {
+    return this.subjectsForm.get('semesterId');
   }
 
   getNeptunErrorMessage() {
@@ -135,14 +127,12 @@ export class SubjectsUpdateComponent implements OnInit {
       if (this.name.hasError('maxlength'))
         return 'You can enter at most 50 characters!';
     }
-    if (this.email.dirty || this.email.touched) {
-      if (this.email.hasError('required')) return 'You must enter a value!';
+    if (this.credit.dirty || this.credit.touched) {
+      if (this.credit.hasError('required')) return 'You must enter a value!';
     }
-    if (this.position.dirty || this.position.touched) {
-      if (this.position.hasError('required')) return 'You must enter a value!';
-    }
-    if (this.email.dirty || this.email.touched) {
-      if (this.email.hasError('email')) return 'You must enter a valid email!';
+    if (this.department.dirty || this.department.touched) {
+      if (this.department.hasError('required'))
+        return 'You must enter a value!';
     }
     return '';
   }

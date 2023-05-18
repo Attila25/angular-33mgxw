@@ -6,7 +6,9 @@ import { Store } from '@ngrx/store';
 import {
   StudentActionTypes,
   studentCreatedAction,
+  studentLoadedAction,
   studentsLoadedAction,
+  studentUpdatedAction,
 } from './students.actions';
 import { StudentsService } from '../students.service';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -23,6 +25,18 @@ export class StudentEffects {
           catchError(() => EMPTY)
         );
       })
+    )
+  );
+
+  loadStudent$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(StudentActionTypes.studentRequested),
+      switchMap((action) =>
+        this.studentsService.getStudent(action.studentId).pipe(
+          map((student) => studentLoadedAction({ student })),
+          catchError(() => EMPTY)
+        )
+      )
     )
   );
 

@@ -36,6 +36,10 @@ export class StudentsService {
     return this.requestService.get<StudentModel[]>(STUDENT_URL, httpOptions);
   }
 
+  getStudent(studentId: number): Observable<any> {
+    return this.requestService.get(`${STUDENT_URL}/${studentId}`);
+  }
+
   createStudent(student: StudentModel): Observable<any> {
     return this.requestService.post(`${STUDENT_URL}/`, student);
   }

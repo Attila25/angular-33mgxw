@@ -22,6 +22,8 @@ import { SubjectsService } from '../../subjects/subjects.service';
 import { regExValidator } from '../../validators/regex.validator';
 import { SemesterModel } from '../../semesters/store/semesters.model';
 import { SemestersService } from '../../semesters/semesters.service';
+import { selectSemesters } from '../../semesters/store/semesters.selectors';
+import { semestersRequestedAction } from '../../semesters/store/semesters.actions';
 
 @Component({
   selector: 'app-subjects-create',
@@ -31,7 +33,11 @@ import { SemestersService } from '../../semesters/semesters.service';
 export class SubjectsCreateComponent implements OnInit {
   subjectsForm: FormGroup;
 
-  semester: SemesterModel;
+  semesterConv: SemesterModel[];
+
+  semesters$: Observable<SemesterModel[]> = this.store.pipe(
+    select(selectSemesters)
+  );
 
   constructor(
     private semestersService: SemestersService,
@@ -53,18 +59,23 @@ export class SubjectsCreateComponent implements OnInit {
       semesters_s: [[], []],
     });
 
-    this.getSemester();
-  }
-
-  getSemester(): void {
-    this.semestersService
-      .getSemester(1)
-      .subscribe((semester) => (this.semester = semester));
+    this.store.dispatch(semestersRequestedAction());
   }
 
   onSubmit(subjectData: any) {
+    this.semesters$.subscribe((semester) => {
+      this.semesterConv = semester as SemesterModel[];
+    });
+
     subjectData.deleted = false;
-    subjectData.semesters_s.push(this.semester.name);
+    subjectData.semesterIds = subjectData.semesterId.split(',');
+
+    subjectData.semesterIds.forEach((x) => {
+      const semester = this.semesterConv.find((y) => y.id == x);
+
+      if (semester != undefined) subjectData.semesters_s.push(semester.name);
+    });
+
     this.store.dispatch(subjectCreateAction(subjectData));
     this.subjectsForm.reset();
     this.router.navigate(['/subjects']);

@@ -49,6 +49,7 @@ import { SubjectEffects } from '../subjects/store/subjects.effects';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentsCreateComponent } from './students-create/students-create.component';
+import { StudentsUpdateComponent } from './students-update/students-update.component';
 
 @NgModule({
   imports: [
@@ -107,6 +108,7 @@ import { StudentsCreateComponent } from './students-create/students-create.compo
     StudentsComponent,
     StudentsListComponent,
     StudentsCreateComponent,
+    StudentsUpdateComponent,
   ],
   providers: [StudentsService],
 })

@@ -103,8 +103,8 @@ import { TeachersUpdateComponent } from './teachers-update/teachers-update.compo
       fromSubjects.subjectsFeatureKey,
       fromSubjects.subjectsReducer
     ),
-    EffectsModule.forFeature([TeacherEffects]),
     EffectsModule.forFeature([SubjectEffects]),
+    EffectsModule.forFeature([TeacherEffects]),
   ],
   declarations: [
     TeachersComponent,
