@@ -99,6 +99,18 @@
       <td mat-cell *matCellDef="let element">{{ element.subjects_t }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon
+          aria-hidden="false"
+          [routerLink]="['/teachers/edit', element.id]"
+          aria-label="Edit"
+          >edit</mat-icon
+        >
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>

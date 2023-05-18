@@ -47,7 +47,7 @@ export class TeacherEffects {
         return this.teachersService.updateTeacher(action).pipe(
           map((item: any) => {
             return teacherUpdatedAction({
-              author: {
+              teacher: {
                 id: action.id,
                 neptun: action.neptun,
                 name: action.name,
