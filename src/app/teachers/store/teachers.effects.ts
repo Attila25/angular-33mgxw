@@ -32,7 +32,7 @@ export class TeacherEffects {
     this.actions$.pipe(
       ofType(TeacherActionTypes.teacherRequested),
       switchMap((action) =>
-        this.teachersService.getTeacher(1).pipe(
+        this.teachersService.getTeacher(action.teacherId).pipe(
           map((teacher) => teacherLoadedAction({ teacher })),
           catchError(() => EMPTY)
         )
@@ -55,7 +55,7 @@ export class TeacherEffects {
                 position: action.position,
                 subjectId: action.subjectId,
                 subjects_t: action.subjects_t,
-                deleted: false,
+                deleted: action.deleted,
               },
             });
           }),
@@ -70,7 +70,6 @@ export class TeacherEffects {
       ofType(TeacherActionTypes.teacherCreate),
       concatLatestFrom((action) => this.store.select(selectNextTeacherId)),
       switchMap(([action, id]) => {
-        console.log(action, id);
         return this.teachersService.createTeacher(action).pipe(
           map((item: any) => {
             return teacherCreatedAction({

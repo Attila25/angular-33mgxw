@@ -17,7 +17,7 @@ export const selectTeachers = createSelector(
 export const selectLoadedTeacher = createSelector(
   selectFeature,
   (state: TeachersFeatureState) => {
-    return state.teacher;
+    return state.loadedTeacher;
   }
 );
 

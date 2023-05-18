@@ -16,6 +16,7 @@ import {
   teachersLoadedAction,
   teacherCreateAction,
   teacherRequestedAction,
+  teacherUpdateAction,
 } from '../store/teachers.actions';
 import { SubjectTable } from '../../data/subjects.data';
 import { SubjectModel } from '../../subjects/store/subjects.model';
@@ -27,11 +28,11 @@ import { regExValidator } from '../../validators/regex.validator';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-teachers-create',
-  templateUrl: './teachers-create.component.html',
-  styleUrls: ['./teachers-create.component.css'],
+  selector: 'app-teachers-update',
+  templateUrl: './teachers-update.component.html',
+  styleUrls: ['./teachers-update.component.css'],
 })
-export class TeachersCreateComponent implements OnInit {
+export class TeachersUpdateComponent implements OnInit {
   teachersForm: FormGroup;
 
   subject: SubjectModel;
@@ -59,10 +60,12 @@ export class TeachersCreateComponent implements OnInit {
         this.teachersForm.controls.id.setValue(teacher.id);
         this.teachersForm.controls.neptun.setValue(teacher.neptun);
         this.teachersForm.controls.name.setValue(teacher.name);
+        this.teachersForm.controls.email.setValue(teacher.email);
         this.teachersForm.controls.position.setValue(teacher.position);
         this.teachersForm.controls.subjectId.setValue(teacher.subjectId);
       }
     });
+
     this.teachersForm = this.formBuilder.group({
       id: [{ value: 0, disabled: true }, [Validators.required]],
       neptun: [
@@ -74,6 +77,7 @@ export class TeachersCreateComponent implements OnInit {
       position: [, [Validators.required]],
       subjectId: [, [Validators.required]],
       subjects_t: [[], []],
+      deleted: [false],
     });
 
     this.getSubject();
@@ -88,7 +92,8 @@ export class TeachersCreateComponent implements OnInit {
   onSubmit(teacherData: any) {
     teacherData.deleted = false;
     teacherData.subjects_t.push(this.subject.name);
-    this.store.dispatch(teacherCreateAction(teacherData));
+    console.log(teacherData);
+    this.store.dispatch(teacherUpdateAction(teacherData));
     this.teachersForm.reset();
     this.router.navigate(['/teachers']);
   }

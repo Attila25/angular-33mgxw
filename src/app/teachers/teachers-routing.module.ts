@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../../app/auth/auth.guard';
 import { TeachersCreateComponent } from './teachers-create/teachers-create.component';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
+import { TeachersUpdateComponent } from './teachers-update/teachers-update.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { TeacherSubjectListComponent } from './teachersubject-list/teachersubject-list.component';
 
@@ -29,10 +30,10 @@ const routes: Routes = [
             path: 'create',
             component: TeachersCreateComponent,
           },
-          /*{
-          path: 'details/:eventId',
-          component: EventDetailsComponent
-        },*/
+          {
+            path: 'edit/:teacherId',
+            component: TeachersUpdateComponent,
+          },
         ],
       },
     ],

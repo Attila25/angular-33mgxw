@@ -10,12 +10,12 @@ export const teachersFeatureKey = 'teachersFeature';
 
 export interface TeachersFeatureState {
   teachers: Array<TeacherModel>;
-  teacher: TeacherModel;
+  loadedTeacher: TeacherModel;
 }
 
 export const initialState: TeachersFeatureState = {
   teachers: [],
-  teacher: null,
+  loadedTeacher: null,
 };
 
 export const teachersReducer = createReducer(
@@ -23,7 +23,7 @@ export const teachersReducer = createReducer(
   on(teachersLoadedAction, (state, { teachers }) => ({ ...state, teachers })),
   on(teacherLoadedAction, (state, { teacher }) => ({
     ...state,
-    teacher,
+    loadedTeacher: teacher,
   })),
   on(teacherCreateAction, (state) => ({ ...state }))
 );
