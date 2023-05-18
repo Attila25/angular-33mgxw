@@ -37,12 +37,12 @@ export class SemestersService {
     return this.requestService.get<SemesterModel[]>(SEMESTER_URL, httpOptions);
   }
 
-  getSemester(id: number): Observable<any> {
-    const url = `${SEMESTER_URL}/${id}`;
-    return this.requestService.get<SemesterModel>(url).pipe(
-      tap((_) => console.log(`fetched semester id=${id}`)),
-      catchError(this.handleError<SemesterModel>(`get Semester id=${id}`))
-    );
+  getSemester(semesterId: number): Observable<any> {
+    return this.requestService.get(`${SEMESTER_URL}/${semesterId}`);
+  }
+
+  updateSemester(semester: SemesterModel): Observable<any> {
+    return this.requestService.put(`${SEMESTER_URL}/`, semester);
   }
 
   createSemester(semester: SemesterModel): Observable<any> {

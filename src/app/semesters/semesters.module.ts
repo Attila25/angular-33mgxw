@@ -47,6 +47,7 @@ import * as fromSemesters from './store/semesters.reducer';
 import { SemestersListComponent } from './semesters-list/semesters-list.component';
 import { SemestersComponent } from './semesters/semesters.component';
 import { SemestersCreateComponent } from './semesters-create/semesters-create.component';
+import { SemestersUpdateComponent } from './semesters-update/semesters-update.component';
 
 @NgModule({
   imports: [
@@ -100,6 +101,7 @@ import { SemestersCreateComponent } from './semesters-create/semesters-create.co
     SemestersComponent,
     SemestersListComponent,
     SemestersCreateComponent,
+    SemestersUpdateComponent,
   ],
   providers: [SemestersService],
 })

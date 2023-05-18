@@ -15,7 +15,13 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./semesters-list.component.css'],
 })
 export class SemestersListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'start_date', 'end_date'];
+  displayedColumns: string[] = [
+    'id',
+    'name',
+    'start_date',
+    'end_date',
+    'actions',
+  ];
 
   semesters$: Observable<SemesterModel[]> = this.store.pipe(
     select(selectSemesters)

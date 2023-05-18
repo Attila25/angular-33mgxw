@@ -17,7 +17,12 @@ export const selectSemesters = createSelector(
     return state.semesters;
   }
 );
-
+export const selectLoadedSemester = createSelector(
+  selectFeature,
+  (state: SemestersFeatureState) => {
+    return state.loadedSemester;
+  }
+);
 export const selectNextSemesterId = createSelector(
   selectSemesters,
   (semesters: SemesterModel[]) => {

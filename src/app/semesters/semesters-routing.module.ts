@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from '../../app/auth/auth.guard';
 import { SemestersCreateComponent } from './semesters-create/semesters-create.component';
 import { SemestersListComponent } from './semesters-list/semesters-list.component';
+import { SemestersUpdateComponent } from './semesters-update/semesters-update.component';
 import { SemestersComponent } from './semesters/semesters.component';
 
 const routes: Routes = [
@@ -24,10 +25,10 @@ const routes: Routes = [
             path: 'create',
             component: SemestersCreateComponent,
           },
-          /*{
-          path: 'details/:eventId',
-          component: EventDetailsComponent
-        },*/
+          {
+            path: 'edit/:semesterId',
+            component: SemestersUpdateComponent,
+          },
         ],
       },
     ],
