@@ -11,7 +11,7 @@ export enum AuthorActionTypes {
   authorUpdate = '[Authors] Author Update',
   authorUpdated = '[Authors] Author Updated',
   authorDelete = '[Authors] Author Delete',
-  authorDeleted = '[Authors] Author Deleted'
+  authorDeleted = '[Authors] Author Deleted',
 }
 
 export const authorsRequestedAction = createAction(
@@ -19,39 +19,39 @@ export const authorsRequestedAction = createAction(
 );
 export const authorsLoadedAction = createAction(
   AuthorActionTypes.authorsLoaded,
-  props<{authors: AuthorModel[]}>()
+  props<{ authors: AuthorModel[] }>()
 );
 export const authorCreateAction = createAction(
   AuthorActionTypes.authorCreate,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 export const authorCreatedAction = createAction(
   AuthorActionTypes.authorCreated,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 export const authorRequestedAction = createAction(
   AuthorActionTypes.authorRequested,
-  props<{authorId: number}>()
+  props<{ authorId: number }>()
 );
 export const authorLoadedAction = createAction(
   AuthorActionTypes.authorLoaded,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 export const authorUpdateAction = createAction(
   AuthorActionTypes.authorUpdate,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 export const authorUpdatedAction = createAction(
   AuthorActionTypes.authorUpdated,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 export const authorDeleteAction = createAction(
   AuthorActionTypes.authorDelete,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 export const authorDeletedAction = createAction(
   AuthorActionTypes.authorDeleted,
-  props<{author: AuthorModel}>()
+  props<{ author: AuthorModel }>()
 );
 
 /*export const deleteEvent = createAction(

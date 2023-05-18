@@ -43,6 +43,10 @@ export class TeachersService {
     );
   }
 
+  updateTeacher(teacher: TeacherModel): Observable<any> {
+    return this.requestService.put(`${TEACHER_URL}/`, teacher);
+  }
+
   createTeacher(teacher: TeacherModel): Observable<any> {
     return this.requestService.post(`${TEACHER_URL}/`, teacher);
   }

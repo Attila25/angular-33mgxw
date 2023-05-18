@@ -8,6 +8,7 @@ import {
   teacherCreatedAction,
   teacherLoadedAction,
   teachersLoadedAction,
+  teacherUpdatedAction,
 } from './teachers.actions';
 import { TeachersService } from '../teachers.service';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -36,6 +37,31 @@ export class TeacherEffects {
           catchError(() => EMPTY)
         )
       )
+    )
+  );
+
+  updateTeacher$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(TeacherActionTypes.teacherUpdate),
+      switchMap((action) => {
+        return this.teachersService.updateTeacher(action).pipe(
+          map((item: any) => {
+            return teacherUpdatedAction({
+              author: {
+                id: action.id,
+                neptun: action.neptun,
+                name: action.name,
+                email: action.email,
+                position: action.position,
+                subjectId: action.subjectId,
+                subjects_t: action.subjects_t,
+                deleted: false,
+              },
+            });
+          }),
+          catchError(() => EMPTY)
+        );
+      })
     )
   );
 

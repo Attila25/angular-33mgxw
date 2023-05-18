@@ -8,8 +8,8 @@ export enum TeacherActionTypes {
   teacherCreated = '[Teachers] Teacher Created',
   teacherRequested = '[Teachers] Teacher Requested',
   teacherLoaded = '[Teachers] Teacher Loaded',
-  teacherUpdate = '[Teachers] Teacher Update'
-  teacherUpdated = '[Teachers] Teacher Updated'
+  teacherUpdate = '[Teachers] Teacher Update',
+  teacherUpdated = '[Teachers] Teacher Updated',
 }
 
 export const teachersRequestedAction = createAction(
