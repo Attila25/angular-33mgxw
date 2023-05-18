@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { SemestersService } from '../semesters.service';
@@ -6,6 +6,8 @@ import { selectSemesters } from '../store/semesters.selectors';
 import { semestersRequestedAction } from '../store/semesters.actions';
 import { SemesterModel } from '../store/semesters.model';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-semesters-list',
@@ -15,18 +17,12 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 export class SemestersListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'start_date', 'end_date'];
 
-  private searchTerms = new Subject<string>();
-
-  search(term: string): void {
-    this.searchTerms.next(term);
-    this.searchS();
-  }
-
   semesters$: Observable<SemesterModel[]> = this.store.pipe(
     select(selectSemesters)
   );
 
-  semesters_s$: Observable<SemesterModel[]>;
+  dataSource = new MatTableDataSource<SemesterModel>();
+  private searchSub$ = new Subject<string>();
 
   constructor(
     private semestersService: SemestersService,
@@ -34,17 +30,32 @@ export class SemestersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.semesters_s$ = this.searchTerms.pipe(
-      debounceTime(300),
-
-      distinctUntilChanged(),
-
-      switchMap((term: string) => this.semestersService.searchSemesters(term))
-    );
+    this.searchSub$
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((filterValue: string) => {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+      });
 
     this.store.dispatch(semestersRequestedAction());
+
+    this.semesters$.subscribe(
+      (data) => (this.dataSource = new MatTableDataSource(data))
+    );
   }
-  searchS() {
-    this.semesters$ = this.semesters_s$;
+
+  @ViewChild(MatSort) sort: MatSort;
+
+  applyFilter(filterValue: string) {
+    this.searchSub$.next(filterValue);
+  }
+
+  announceSortChange(sortState: Sort) {
+    if (sortState.direction) {
+      console.log(`Sorted ${sortState.direction}ending`);
+    } else {
+      console.log('Sorting cleared');
+    }
+
+    this.dataSource.sort = this.sort;
   }
 }

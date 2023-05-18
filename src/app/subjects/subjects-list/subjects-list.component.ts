@@ -1,4 +1,4 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
 import { SubjectsService } from '../subjects.service';
@@ -6,6 +6,8 @@ import { selectSubjects } from '../store/subjects.selectors';
 import { subjectsRequestedAction } from '../store/subjects.actions';
 import { SubjectModel } from '../store/subjects.model';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-subjects-list',
@@ -19,37 +21,39 @@ export class SubjectsListComponent implements OnInit {
     'name',
     'credit',
     'department',
-    'semesterId',
     'semesters_s',
   ];
-
-  private searchTerms = new Subject<string>();
-
-  search(term: string): void {
-    this.searchTerms.next(term);
-    this.searchS();
-  }
 
   subjects$: Observable<SubjectModel[]> = this.store.pipe(
     select(selectSubjects)
   );
 
-  subjects_S$: Observable<SubjectModel[]>;
+  dataSource = new MatTableDataSource<SubjectModel>();
+  private searchSub$ = new Subject<string>();
 
   constructor(private subjectsService: SubjectsService, private store: Store) {}
 
   ngOnInit() {
-    this.subjects_S$ = this.searchTerms.pipe(
-      debounceTime(300),
+    this.searchSub$
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((filterValue: string) => {
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+      });
 
-      distinctUntilChanged(),
-
-      switchMap((term: string) => this.subjectsService.searchSubjects(term))
-    );
     this.store.dispatch(subjectsRequestedAction());
+
+    this.subjects$.subscribe(
+      (data) => (this.dataSource = new MatTableDataSource(data))
+    );
   }
 
-  searchS() {
-    this.subjects$ = this.subjects_S$;
+  @ViewChild(MatSort) sort: MatSort;
+
+  applyFilter(filterValue: string) {
+    this.searchSub$.next(filterValue);
+  }
+
+  announceSortChange(sortState: Sort) {
+    this.dataSource.sort = this.sort;
   }
 }

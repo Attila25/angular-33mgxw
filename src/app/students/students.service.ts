@@ -36,21 +36,6 @@ export class StudentsService {
     return this.requestService.get<StudentModel[]>(STUDENT_URL, httpOptions);
   }
 
-  searchStudents(term: string): Observable<StudentModel[]> {
-    if (!term.trim()) {
-    }
-    return this.requestService
-      .get<StudentModel[]>(`${STUDENT_URL}/?name=${term}`)
-      .pipe(
-        tap((x) =>
-          x.length
-            ? console.log(`found students matching "${term}"`)
-            : console.log(`no students matching "${term}"`)
-        ),
-        catchError(this.handleError<StudentModel[]>('searchStudents', []))
-      );
-  }
-
   createStudent(student: StudentModel): Observable<any> {
     return this.requestService.post(`${STUDENT_URL}/`, student);
   }

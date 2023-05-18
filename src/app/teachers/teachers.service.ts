@@ -43,21 +43,6 @@ export class TeachersService {
     );
   }
 
-  searchTeachers(term: string): Observable<TeacherModel[]> {
-    if (!term.trim()) {
-    }
-    return this.requestService
-      .get<TeacherModel[]>(`${TEACHER_URL}/?name=${term}`)
-      .pipe(
-        tap((x) =>
-          x.length
-            ? console.log(`found teachers matching "${term}"`)
-            : console.log(`no teachers matching "${term}"`)
-        ),
-        catchError(this.handleError<TeacherModel[]>('searchTeachers', []))
-      );
-  }
-
   createTeacher(teacher: TeacherModel): Observable<any> {
     return this.requestService.post(`${TEACHER_URL}/`, teacher);
   }
