@@ -34,8 +34,11 @@ import { map } from 'rxjs/operators';
 })
 export class TeachersUpdateComponent implements OnInit {
   teachersForm: FormGroup;
+  subjectConv: SubjectModel[];
 
-  subject: SubjectModel;
+  subjects$: Observable<SubjectModel[]> = this.store.pipe(
+    select(selectSubjects)
+  );
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +49,8 @@ export class TeachersUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(subjectsRequestedAction());
+
     this.route.paramMap
       .pipe(
         map((params) => {
@@ -79,20 +84,22 @@ export class TeachersUpdateComponent implements OnInit {
       subjects_t: [[], []],
       deleted: [false],
     });
-
-    this.getSubject();
-  }
-
-  getSubject(): void {
-    this.subjectsService
-      .getSubject(1)
-      .subscribe((subject) => (this.subject = subject));
   }
 
   onSubmit(teacherData: any) {
+    this.subjects$.subscribe((subject) => {
+      this.subjectConv = subject as SubjectModel[];
+    });
+
     teacherData.deleted = false;
-    teacherData.subjects_t.push(this.subject.name);
-    console.log(teacherData);
+    teacherData.subjectIds = teacherData.subjectId.split(',');
+
+    teacherData.subjectIds.forEach((x) => {
+      const subject = this.subjectConv.find((y) => y.id == x);
+
+      if (subject != undefined) teacherData.subjects_t.push(subject.name);
+    });
+
     this.store.dispatch(teacherUpdateAction(teacherData));
     this.teachersForm.reset();
     this.router.navigate(['/teachers']);

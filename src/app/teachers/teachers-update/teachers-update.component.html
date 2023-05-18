@@ -4,7 +4,10 @@
     <b>Back to teachers</b>
   </a>
 </p>
-<form [formGroup]="teachersForm" (ngSubmit)="onSubmit(teachersForm.getRawValue())">
+<form
+  [formGroup]="teachersForm"
+  (ngSubmit)="onSubmit(teachersForm.getRawValue())"
+>
   <div>
     <mat-form-field appearance="outline">
       <mat-label>Teacher's ID</mat-label>

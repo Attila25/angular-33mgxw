@@ -44,6 +44,7 @@ import { TeachersRoutingModule } from './teachers-routing.module';
 import { TeachersService } from './teachers.service';
 import { TeacherEffects } from './store/teachers.effects';
 import * as fromTeachers from './store/teachers.reducer';
+import * as fromSubjects from '../subjects/store/subjects.reducer';
 import { TeachersListComponent } from './teachers-list/teachers-list.component';
 import { TeachersComponent } from './teachers/teachers.component';
 import { TeacherSubjectListComponent } from './teachersubject-list/teachersubject-list.component';
@@ -95,6 +96,10 @@ import { TeachersUpdateComponent } from './teachers-update/teachers-update.compo
     StoreModule.forFeature(
       fromTeachers.teachersFeatureKey,
       fromTeachers.teachersReducer
+    ),
+    StoreModule.forFeature(
+      fromSubjects.subjectsFeatureKey,
+      fromSubjects.subjectsReducer
     ),
     EffectsModule.forFeature([TeacherEffects]),
   ],

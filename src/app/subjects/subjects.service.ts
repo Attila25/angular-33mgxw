@@ -37,7 +37,7 @@ export class SubjectsService {
     return this.requestService.get<SubjectModel[]>(SUBJECT_URL, httpOptions);
   }
 
-  getSubject(id: number): Observable<any> {
+  getSubject(id: number): Observable<SubjectModel> {
     const url = `${SUBJECT_URL}/${id}`;
     return this.requestService.get<SubjectModel>(url).pipe(
       tap((_) => console.log(`fetched hero id=${id}`)),

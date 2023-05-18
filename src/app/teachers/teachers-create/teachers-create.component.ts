@@ -29,7 +29,11 @@ import { regExValidator } from '../../validators/regex.validator';
 export class TeachersCreateComponent implements OnInit {
   teachersForm: FormGroup;
 
-  subject: SubjectModel;
+  subjectConv: SubjectModel[];
+
+  subjects$: Observable<SubjectModel[]> = this.store.pipe(
+    select(selectSubjects)
+  );
 
   constructor(
     private subjectsService: SubjectsService,
@@ -39,6 +43,8 @@ export class TeachersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.store.dispatch(subjectsRequestedAction());
+
     this.teachersForm = this.formBuilder.group({
       neptun: [
         '',
@@ -50,19 +56,22 @@ export class TeachersCreateComponent implements OnInit {
       subjectId: [, [Validators.required]],
       subjects_t: [[], []],
     });
-
-    this.getSubject();
-  }
-
-  getSubject(): void {
-    this.subjectsService
-      .getSubject(1)
-      .subscribe((subject) => (this.subject = subject));
   }
 
   onSubmit(teacherData: any) {
+    this.subjects$.subscribe((subject) => {
+      this.subjectConv = subject as SubjectModel[];
+    });
+
     teacherData.deleted = false;
-    teacherData.subjects_t.push(this.subject.name);
+    teacherData.subjectIds = teacherData.subjectId.split(',');
+
+    teacherData.subjectIds.forEach((x) => {
+      const subject = this.subjectConv.find((y) => y.id == x);
+
+      if (subject != undefined) teacherData.subjects_t.push(subject.name);
+    });
+
     this.store.dispatch(teacherCreateAction(teacherData));
     this.teachersForm.reset();
     this.router.navigate(['/teachers']);

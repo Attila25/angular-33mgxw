@@ -35,14 +35,6 @@ export class TeachersService {
     return this.requestService.get<TeacherModel[]>(TEACHER_URL, httpOptions);
   }
 
-  /*getTeacher(id: number): Observable<any> {
-    const url = `${TEACHER_URL}/${id}`;
-    return this.requestService.get<TeacherModel>(url).pipe(
-      tap((_) => console.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<TeacherModel>(`getHero id=${id}`))
-    );
-  }*/
-
   getTeacher(teacherId: number): Observable<any> {
     return this.requestService.get(`${TEACHER_URL}/${teacherId}`);
   }
