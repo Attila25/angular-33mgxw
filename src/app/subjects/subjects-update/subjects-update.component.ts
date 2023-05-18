@@ -8,16 +8,16 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import {
-  selectLoadedTeacher,
-  selectNextTeacherId,
-} from '../store/teachers.selectors';
+  selectLoadedSubject,
+  selectNextSubjectId,
+} from '../store/subjects.selectors';
 import {
-  TeacherActionTypes,
-  teachersLoadedAction,
-  teacherCreateAction,
-  teacherRequestedAction,
-  teacherUpdateAction,
-} from '../store/teachers.actions';
+  SubjectActionTypes,
+  subjectsLoadedAction,
+  subjectCreateAction,
+  subjectRequestedAction,
+  subjectUpdateAction,
+} from '../store/subjects.actions';
 import { SubjectTable } from '../../data/subjects.data';
 import { SubjectModel } from '../../subjects/store/subjects.model';
 import { selectSubjects } from '../../subjects/store/subjects.selectors';
@@ -28,12 +28,12 @@ import { regExValidator } from '../../validators/regex.validator';
 import { map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-teachers-update',
-  templateUrl: './teachers-update.component.html',
-  styleUrls: ['./teachers-update.component.css'],
+  selector: 'app-subjects-update',
+  templateUrl: './subjects-update.component.html',
+  styleUrls: ['./subjects-update.component.css'],
 })
-export class TeachersUpdateComponent implements OnInit {
-  teachersForm: FormGroup;
+export class SubjectsUpdateComponent implements OnInit {
+  subjectsForm: FormGroup;
   subjectConv: SubjectModel[];
 
   subjects$: Observable<SubjectModel[]> = this.store.pipe(
@@ -53,23 +53,23 @@ export class TeachersUpdateComponent implements OnInit {
       .pipe(
         map((params) => {
           return this.store.dispatch(
-            teacherRequestedAction({ teacherId: +params.get('teacherId') })
+            subjectRequestedAction({ subjectId: +params.get('subjectId') })
           );
         })
       )
       .subscribe();
-    this.store.pipe(select(selectLoadedTeacher)).subscribe((teacher) => {
-      if (teacher && this.teachersForm) {
-        this.teachersForm.controls.id.setValue(teacher.id);
-        this.teachersForm.controls.neptun.setValue(teacher.neptun);
-        this.teachersForm.controls.name.setValue(teacher.name);
-        this.teachersForm.controls.email.setValue(teacher.email);
-        this.teachersForm.controls.position.setValue(teacher.position);
-        this.teachersForm.controls.subjectId.setValue(teacher.subjectId);
+    this.store.pipe(select(selectLoadedSubject)).subscribe((subject) => {
+      if (subject && this.subjectsForm) {
+        this.subjectsForm.controls.id.setValue(subject.id);
+        this.subjectsForm.controls.neptun.setValue(subject.neptun);
+        this.subjectsForm.controls.name.setValue(subject.name);
+        this.subjectsForm.controls.email.setValue(subject.email);
+        this.subjectsForm.controls.position.setValue(subject.position);
+        this.subjectsForm.controls.subjectId.setValue(subject.subjectId);
       }
     });
 
-    this.teachersForm = this.formBuilder.group({
+    this.subjectsForm = this.formBuilder.group({
       id: [{ value: 0, disabled: true }, [Validators.required]],
       neptun: [
         '',
@@ -86,39 +86,39 @@ export class TeachersUpdateComponent implements OnInit {
     this.store.dispatch(subjectsRequestedAction());
   }
 
-  onSubmit(teacherData: any) {
+  onSubmit(subjectData: any) {
     this.subjects$.subscribe((subject) => {
       this.subjectConv = subject as SubjectModel[];
     });
 
-    teacherData.deleted = false;
-    teacherData.subjectIds = teacherData.subjectId.split(',');
+    subjectData.deleted = false;
+    subjectData.subjectIds = subjectData.subjectId.split(',');
 
-    teacherData.subjectIds.forEach((x) => {
+    subjectData.subjectIds.forEach((x) => {
       const subject = this.subjectConv.find((y) => y.id == x);
       console.log(this.subjectConv);
-      if (subject != undefined) teacherData.subjects_t.push(subject.name);
+      if (subject != undefined) subjectData.subjects_t.push(subject.name);
     });
 
-    this.store.dispatch(teacherUpdateAction(teacherData));
-    this.teachersForm.reset();
-    this.router.navigate(['/teachers']);
+    this.store.dispatch(subjectUpdateAction(subjectData));
+    this.subjectsForm.reset();
+    this.router.navigate(['/subjects']);
   }
 
   get neptun() {
-    return this.teachersForm.get('neptun');
+    return this.subjectsForm.get('neptun');
   }
   get name() {
-    return this.teachersForm.get('name');
+    return this.subjectsForm.get('name');
   }
   get email() {
-    return this.teachersForm.get('email');
+    return this.subjectsForm.get('email');
   }
   get position() {
-    return this.teachersForm.get('position');
+    return this.subjectsForm.get('position');
   }
   get subjectId() {
-    return this.teachersForm.get('subjectId');
+    return this.subjectsForm.get('subjectId');
   }
 
   getNeptunErrorMessage() {

@@ -30,7 +30,6 @@ export class TeachersListComponent implements OnInit {
   teachers$: Observable<TeacherModel[]> = this.store.pipe(
     select(selectTeachers)
   );
-
   dataSource = new MatTableDataSource<TeacherModel>();
   private searchSub$ = new Subject<string>();
 

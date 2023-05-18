@@ -7,6 +7,8 @@ import {
   SubjectActionTypes,
   subjectCreatedAction,
   subjectsLoadedAction,
+  subjectLoadedAction,
+  subjectUpdatedAction,
 } from './subjects.actions';
 import { SubjectsService } from '../subjects.service';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -26,6 +28,43 @@ export class SubjectEffects {
     )
   );
 
+  loadSubject$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubjectActionTypes.subjectRequested),
+      switchMap((action) =>
+        this.subjectsService.getSubject(action.subjectId).pipe(
+          map((subject) => subjectLoadedAction({ subject })),
+          catchError(() => EMPTY)
+        )
+      )
+    )
+  );
+
+  updateSubject$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(SubjectActionTypes.subjectUpdate),
+      switchMap((action) => {
+        return this.subjectsService.updateSubject(action).pipe(
+          map((item: any) => {
+            return subjectUpdatedAction({
+              subject: {
+                id: action.id,
+                neptun: action.neptun,
+                name: action.name,
+                credit: action.credit,
+                department: action.department,
+                semesterId: action.semesterId,
+                semesters_s: action.semesters_s,
+                deleted: action.deleted,
+              },
+            });
+          }),
+          catchError(() => EMPTY)
+        );
+      })
+    )
+  );
+
   createSubject$ = createEffect(() =>
     this.actions$.pipe(
       ofType(SubjectActionTypes.subjectCreate),
@@ -39,11 +78,11 @@ export class SubjectEffects {
                 id: action.id,
                 neptun: action.neptun,
                 name: action.name,
-                email: action.email,
-                position: action.position,
-                subjectId: action.subjectId,
-                subjects: [],
-                deleted: false,
+                credit: action.credit,
+                department: action.department,
+                semesterId: action.semesterId,
+                semesters_s: action.semesters_s,
+                deleted: action.deleted,
               },
             });
           }),

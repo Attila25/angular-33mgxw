@@ -44,6 +44,8 @@ import { StudentsRoutingModule } from './students-routing.module';
 import { StudentsService } from './students.service';
 import { StudentEffects } from './store/students.effects';
 import * as fromStudents from './store/students.reducer';
+import * as fromSubjects from '../subjects/store/subjects.reducer';
+import { SubjectEffects } from '../subjects/store/subjects.effects';
 import { StudentsListComponent } from './students-list/students-list.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentsCreateComponent } from './students-create/students-create.component';
@@ -94,7 +96,12 @@ import { StudentsCreateComponent } from './students-create/students-create.compo
       fromStudents.studentsFeatureKey,
       fromStudents.studentsReducer
     ),
+    StoreModule.forFeature(
+      fromSubjects.subjectsFeatureKey,
+      fromSubjects.subjectsReducer
+    ),
     EffectsModule.forFeature([StudentEffects]),
+    EffectsModule.forFeature([SubjectEffects]),
   ],
   declarations: [
     StudentsComponent,

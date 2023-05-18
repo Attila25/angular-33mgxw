@@ -15,6 +15,13 @@ export const selectSubjects = createSelector(
   }
 );
 
+export const selectLoadedSubject = createSelector(
+  selectFeature,
+  (state: SubjectsFeatureState) => {
+    return state.loadedSubject;
+  }
+);
+
 export const selectNextSubjectId = createSelector(
   selectSubjects,
   (subjects: SubjectModel[]) => {

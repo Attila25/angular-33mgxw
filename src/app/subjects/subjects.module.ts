@@ -44,9 +44,12 @@ import { SubjectsRoutingModule } from './subjects-routing.module';
 import { SubjectsService } from './subjects.service';
 import { SubjectEffects } from './store/subjects.effects';
 import * as fromSubjects from './store/subjects.reducer';
+import { SemesterEffects } from './store/semesters.effects';
+import * as fromSemesters from './store/semesters.reducer';
 import { SubjectsListComponent } from './subjects-list/subjects-list.component';
 import { SubjectsComponent } from './subjects/subjects.component';
 import { SubjectsCreateComponent } from './subjects-create/subjects-create.component';
+import { SubjectsUpdateComponent } from './subjects-update/subjects-update.component';
 
 @NgModule({
   imports: [
@@ -94,12 +97,18 @@ import { SubjectsCreateComponent } from './subjects-create/subjects-create.compo
       fromSubjects.subjectsFeatureKey,
       fromSubjects.subjectsReducer
     ),
+    StoreModule.forFeature(
+      fromSemesters.semestersFeatureKey,
+      fromSemesters.semestersReducer
+    ),
+    EffectsModule.forFeature([SemesterEffects]),
     EffectsModule.forFeature([SubjectEffects]),
   ],
   declarations: [
     SubjectsComponent,
     SubjectsListComponent,
     SubjectsCreateComponent,
+    SubjectsUpdateComponent,
   ],
   providers: [SubjectsService],
 })

@@ -37,12 +37,12 @@ export class SubjectsService {
     return this.requestService.get<SubjectModel[]>(SUBJECT_URL, httpOptions);
   }
 
-  getSubject(id: number): Observable<SubjectModel> {
-    const url = `${SUBJECT_URL}/${id}`;
-    return this.requestService.get<SubjectModel>(url).pipe(
-      tap((_) => console.log(`fetched hero id=${id}`)),
-      catchError(this.handleError<SubjectModel>(`getHero id=${id}`))
-    );
+  getSubject(subjectId: number): Observable<any> {
+    return this.requestService.get(`${SUBJECT_URL}/${subjectId}`);
+  }
+
+  updateSubject(teacher: SubjectModel): Observable<any> {
+    return this.requestService.put(`${SUBJECT_URL}/`, teacher);
   }
 
   createSubject(subject: SubjectModel): Observable<any> {

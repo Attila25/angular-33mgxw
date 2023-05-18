@@ -43,8 +43,6 @@ export class TeachersCreateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(subjectsRequestedAction());
-
     this.teachersForm = this.formBuilder.group({
       neptun: [
         '',
@@ -56,6 +54,8 @@ export class TeachersCreateComponent implements OnInit {
       subjectId: [, [Validators.required]],
       subjects_t: [[], []],
     });
+
+    this.store.dispatch(subjectsRequestedAction());
   }
 
   onSubmit(teacherData: any) {
