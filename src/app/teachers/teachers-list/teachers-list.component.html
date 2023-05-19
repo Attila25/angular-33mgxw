@@ -110,8 +110,31 @@
         >
       </td>
     </ng-container>
+    <ng-container matColumnDef="search">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon
+          aria-hidden="false"
+          [routerLink]="['/teachers/sub', element.id, semesterId]"
+          aria-label="Edit"
+          >search</mat-icon
+        >
+      </td>
+    </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
+</div>
+
+<div>
+  <mat-form-field appearance="outline">
+    <mat-label>Semester Id</mat-label>
+    <input
+      matInput
+      type="number"
+      placeholder="Semester Id"
+      [(ngModel)]="semesterId"
+    />
+  </mat-form-field>
 </div>

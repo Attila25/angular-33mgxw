@@ -50,6 +50,7 @@ import { StudentsListComponent } from './students-list/students-list.component';
 import { StudentsComponent } from './students/students.component';
 import { StudentsCreateComponent } from './students-create/students-create.component';
 import { StudentsUpdateComponent } from './students-update/students-update.component';
+import { StudentSubjectListComponent } from './studentsubject-list/studentsubject-list.component';
 
 @NgModule({
   imports: [
@@ -109,6 +110,7 @@ import { StudentsUpdateComponent } from './students-update/students-update.compo
     StudentsListComponent,
     StudentsCreateComponent,
     StudentsUpdateComponent,
+    StudentSubjectListComponent,
   ],
   providers: [StudentsService],
 })

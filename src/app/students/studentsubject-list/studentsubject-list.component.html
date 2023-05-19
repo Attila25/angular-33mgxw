@@ -1,16 +1,16 @@
 <div style="margin-bottom: 10px">
-  <a mat-mini-fab routerLink="/teachers" color="primary">
+  <a mat-mini-fab routerLink="/students" color="primary">
     <mat-icon>home</mat-icon>
   </a>
 </div>
 
-<mat-card *ngIf="teacher">
+<mat-card *ngIf="student">
   <mat-card-header>
     <div mat-card-avatar>
       <i class="material-icons">name</i>
     </div>
     <mat-card-title>
-      <b>{{ teacher.name }}</b>
+      <b>{{ student.name }}</b>
     </mat-card-title>
   </mat-card-header>
 </mat-card>

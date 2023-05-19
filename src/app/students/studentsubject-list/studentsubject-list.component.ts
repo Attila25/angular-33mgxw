@@ -8,16 +8,16 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import {
-  selectLoadedTeacher,
-  selectNextTeacherId,
-} from '../store/teachers.selectors';
+  selectLoadedStudent,
+  selectNextStudentId,
+} from '../store/students.selectors';
 import {
-  TeacherActionTypes,
-  teachersLoadedAction,
-  teacherCreateAction,
-  teacherRequestedAction,
-  teacherUpdateAction,
-} from '../store/teachers.actions';
+  StudentActionTypes,
+  studentsLoadedAction,
+  studentCreateAction,
+  studentRequestedAction,
+  studentUpdateAction,
+} from '../store/students.actions';
 import { SubjectTable } from '../../data/subjects.data';
 import { SubjectModel } from '../../subjects/store/subjects.model';
 import { selectSubjects } from '../../subjects/store/subjects.selectors';
@@ -27,17 +27,17 @@ import { SubjectsService } from '../../subjects/subjects.service';
 import { regExValidator } from '../../validators/regex.validator';
 import { map } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
-import { TeacherModel } from '../store/teachers.model';
+import { StudentModel } from '../store/students.model';
 
 @Component({
-  selector: 'app-teachersubject-list',
-  templateUrl: './teachersubject-list.component.html',
-  styleUrls: ['./teachersubject-list.component.css'],
+  selector: 'app-studentsubject-list',
+  templateUrl: './studentsubject-list.component.html',
+  styleUrls: ['./studentsubject-list.component.css'],
 })
-export class TeacherSubjectListComponent implements OnInit {
+export class StudentSubjectListComponent implements OnInit {
   displayedColumns: string[] = ['name', 'semesters_s'];
 
-  teacher: TeacherModel;
+  student: StudentModel;
   subjectConv: SubjectModel[];
   subjectList: SubjectModel[];
 
@@ -70,20 +70,20 @@ export class TeacherSubjectListComponent implements OnInit {
       .pipe(
         map((params) => {
           return this.store.dispatch(
-            teacherRequestedAction({ teacherId: +params.get('teacherId') })
+            studentRequestedAction({ studentId: +params.get('studentId') })
           );
         })
       )
       .subscribe();
 
-    this.store.pipe(select(selectLoadedTeacher)).subscribe((teacher) => {
-      if (teacher) {
-        this.teacher = teacher;
+    this.store.pipe(select(selectLoadedStudent)).subscribe((student) => {
+      if (student) {
+        this.student = student;
       }
     });
     this.subjectList = [];
-    console.log(this.teacher);
-    this.teacher.subjectId.forEach((x) => {
+    console.log(this.student);
+    this.student.subjectId.forEach((x) => {
       const subject = this.subjectConv.find((y) => y.id == x);
       if (subject != undefined)
         subject.semesterId.forEach((x) => {
