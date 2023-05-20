@@ -29,6 +29,7 @@ import { TeachersFeatureState } from './teachers/store/teachers.reducer';
 import { SubjectsFeatureState } from './subjects/store/subjects.reducer';
 import { StudentsFeatureState } from './students/store/students.reducer';
 import { SemestersFeatureState } from './semesters/store/semesters.reducer';
+import { LoginService } from './login/login.service';
 
 export interface AppState {
   eventsFeature: EventsFeatureState;
@@ -73,6 +74,7 @@ export interface AppState {
     RequestService,
     httpInterceptorProviders,
     AuthService,
+    LoginService,
   ],
 })
 export class AppModule {}

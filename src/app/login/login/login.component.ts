@@ -16,6 +16,7 @@ import { LoginService } from '../login.service';
 })
 export class LoginComponent implements OnInit {
   LoginForm: FormGroup;
+  LogoutForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,6 +36,14 @@ export class LoginComponent implements OnInit {
   onSubmit(loginData: any) {
     this.service.login(loginData.email);
     this.LoginForm.reset();
+    window.location.reload();
+    this.router.navigate(['']);
+  }
+
+  logout() {
+    this.service.logout();
+    this.LoginForm.reset();
+    window.location.reload();
     this.router.navigate(['']);
   }
 

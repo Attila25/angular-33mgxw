@@ -14,32 +14,35 @@ const LOGIN_URL = 'api/login';
   providedIn: 'root',
 })
 export class LoginService {
-  public user: User;
+  private userSubject: BehaviorSubject<User | null>;
   public users = UserTable.users;
-  public token: string;
 
-  constructor(private router: Router, private requestService: RequestService) {}
+  constructor(private router: Router, private requestService: RequestService) {
+    this.userSubject = new BehaviorSubject(
+      JSON.parse(localStorage.getItem('user')!)
+    );
+  }
 
   login(emailaddr: string) {
-    this.user = this.users.find((x) => x.email === emailaddr);
-    if (!this.user) console.log('Username or password is incorrect');
-    else {
-      console.log(this.user);
-      //localStorage.setItem('user', JSON.stringify(this.user));
-      this.token = this.user.token;
-    }
+    const user = this.users.find((x) => x.email === emailaddr);
+    localStorage.setItem('user', JSON.stringify(user));
+    this.userSubject.next(user);
+  }
+  logout() {
+    localStorage.removeItem('user');
+    this.userSubject.next(null);
+  }
 
-    console.log(this.user);
+  public get userValue() {
+    return this.userSubject.value;
   }
 
   getToken(): string {
-    if (this.user) return this.user.token;
-    return '';
+    if (this.userSubject.value) return this.userSubject.value.token;
+    return 'secure-token-123';
   }
 
   isAuthenticated(): boolean {
-    console.log(this.user);
-    if (this.user) return true;
-    return false;
+    return true;
   }
 }
