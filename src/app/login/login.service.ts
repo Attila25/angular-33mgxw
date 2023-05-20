@@ -30,16 +30,17 @@ export class LoginService {
     const user = this.users.find((x) => x.email === emailaddr);
     if (!user) console.log('Username or password is incorrect');
     else {
+      console.log(user);
+
       localStorage.setItem('user', JSON.stringify(user));
       this.token = user.token;
-
       this.userSubject.next(user);
     }
 
     console.log(this.token);
   }
   logout() {
-    // remove user from local storage and set current user to null
+    console.log('logout');
     localStorage.removeItem('user');
     this.userSubject.next(null);
   }

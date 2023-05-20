@@ -14,8 +14,7 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 
 import { LogoutComponent } from './logout/logout.component';
-import { LoginService } from './login.service';
-import { LoginRoutingModule } from './login-routing.module';
+import { LogoutRoutingModule } from './logout-routing.module';
 
 @NgModule({
   imports: [
@@ -30,6 +29,7 @@ import { LoginRoutingModule } from './login-routing.module';
     MatInputModule,
     MatProgressSpinnerModule,
     MatTableModule,
+    LogoutRoutingModule,
   ],
   declarations: [LogoutComponent],
 })

@@ -15,7 +15,7 @@ import { LoginService } from '../../login/login.service';
   styleUrls: ['./logout.component.css'],
 })
 export class LogoutComponent implements OnInit {
-  LoginForm: FormGroup;
+  LogoutForm: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,4 +24,11 @@ export class LogoutComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.LogoutForm = this.formBuilder.group({});
+  }
+
+  onSubmit() {
+    this.service.logout();
+    this.router.navigate(['']);
+  }
 }

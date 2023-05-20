@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { AuthGuard } from '../../app/auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -20,7 +21,7 @@ const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '', redirectTo: '/logout', pathMatch: 'full' },
   { path: '**', component: LogoutComponent },
 ];
 
@@ -28,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LoginRoutingModule {}
+export class LogoutRoutingModule {}
