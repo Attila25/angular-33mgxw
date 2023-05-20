@@ -1,0 +1,16 @@
+<form [formGroup]="LoginForm" (ngSubmit)="onSubmit(LoginForm.value)">
+  <div>
+    <mat-form-field appearance="outline">
+      <mat-label>Give your email address</mat-label>
+      <input
+        type="email"
+        matInput
+        placeholder="Email"
+        formControlName="email"
+      />
+    </mat-form-field>
+  </div>
+  <button mat-raised-button color="primary" type [disabled]="LoginForm.invalid">
+    Login
+  </button>
+</form>

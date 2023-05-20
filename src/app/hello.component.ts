@@ -27,6 +27,9 @@ import { Component, Input } from '@angular/core';
           <li><a mat-button routerLink="/semesters">
             <b>Semesters</b>
           </a></li>
+          <li><a mat-button routerLink="/login">
+            <b>Login</b>
+          </a></li>
       </ul>
     </nav>
   </mat-card>`,

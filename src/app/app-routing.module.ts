@@ -46,6 +46,12 @@ const routes: Routes = [
     canLoad: [AuthGuard],
   },
   {
+    path: 'login',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
+    canLoad: [AuthGuard],
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full',
