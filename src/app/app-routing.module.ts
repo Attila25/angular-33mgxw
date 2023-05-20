@@ -51,11 +51,6 @@ const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
-    path: 'logout',
-    loadChildren: () =>
-      import('./logout/logout.module').then((m) => m.LogoutModule),
-  },
-  {
     path: '',
     redirectTo: '',
     pathMatch: 'full',

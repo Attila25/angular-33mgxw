@@ -30,9 +30,6 @@ import { Component, Input } from '@angular/core';
           <li><a mat-button routerLink="/login">
             <b>Login</b>
           </a></li>
-          <li><a mat-button routerLink="/logout">
-            <b>Logout</b>
-          </a></li>
       </ul>
     </nav>
   </mat-card>`,
