@@ -5,21 +5,23 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
+    component: LogoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
+        canActivateChild: [AuthGuard],
         children: [
           {
             path: '',
-            component: LoginComponent,
+            component: LogoutComponent,
           },
         ],
       },
     ],
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', component: LoginComponent },
+  { path: '', redirectTo: '', pathMatch: 'full' },
+  { path: '**', component: LogoutComponent },
 ];
 
 @NgModule({

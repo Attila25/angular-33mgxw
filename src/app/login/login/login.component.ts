@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(loginData: any) {
-    this.service.Login(loginData.email);
+    this.service.login(loginData.email);
     this.LoginForm.reset();
-    this.router.navigate(['/teachers']);
+    this.router.navigate(['']);
   }
 
   get email() {

@@ -8,29 +8,44 @@ import {
   Route,
 } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { LoginService } from '../login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private loginService: LoginService,
+    private authService: AuthService
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    this.authService.getDecodedAccessToken();
-    return this.authService.isAuthenticated();
+    const user = this.loginService.userValue;
+    console.log(user);
+    if (user) {
+      return true;
+    }
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    return this.canActivate(route, state);
+    const user = this.loginService.userValue;
+    console.log(user);
+    if (user) {
+      return true;
+    }
   }
 
   canLoad(route: Route): boolean {
-    return this.authService.isAuthenticated();
+    const user = this.loginService.userValue;
+    console.log(user);
+    if (user) {
+      return true;
+    }
   }
 }

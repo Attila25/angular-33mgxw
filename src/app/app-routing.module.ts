@@ -49,7 +49,11 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () =>
       import('./login/login.module').then((m) => m.LoginModule),
-    canLoad: [AuthGuard],
+  },
+  {
+    path: 'logout',
+    loadChildren: () =>
+      import('./logout/logout.module').then((m) => m.LogoutModule),
   },
   {
     path: '',
