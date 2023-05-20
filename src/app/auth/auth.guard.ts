@@ -23,29 +23,17 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const user = this.loginService.userValue;
-    console.log(user);
-    if (user) {
-      return true;
-    }
+    return this.loginService.isAuthenticated();
   }
 
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const user = this.loginService.userValue;
-    console.log(user);
-    if (user) {
-      return true;
-    }
+    return this.loginService.isAuthenticated();
   }
 
   canLoad(route: Route): boolean {
-    const user = this.loginService.userValue;
-    console.log(user);
-    if (user) {
-      return true;
-    }
+    return this.loginService.isAuthenticated();
   }
 }

@@ -14,38 +14,32 @@ const LOGIN_URL = 'api/login';
   providedIn: 'root',
 })
 export class LoginService {
-  private userSubject: BehaviorSubject<User | null>;
-
   public user: User;
   public users = UserTable.users;
   public token: string;
 
-  constructor(private router: Router, private requestService: RequestService) {
-    this.userSubject = new BehaviorSubject(
-      JSON.parse(localStorage.getItem('user')!)
-    );
-  }
+  constructor(private router: Router, private requestService: RequestService) {}
 
   login(emailaddr: string) {
-    const user = this.users.find((x) => x.email === emailaddr);
-    if (!user) console.log('Username or password is incorrect');
+    this.user = this.users.find((x) => x.email === emailaddr);
+    if (!this.user) console.log('Username or password is incorrect');
     else {
-      console.log(user);
-
-      localStorage.setItem('user', JSON.stringify(user));
-      this.token = user.token;
-      this.userSubject.next(user);
+      console.log(this.user);
+      //localStorage.setItem('user', JSON.stringify(this.user));
+      this.token = this.user.token;
     }
 
-    console.log(this.token);
-  }
-  logout() {
-    console.log('logout');
-    localStorage.removeItem('user');
-    this.userSubject.next(null);
+    console.log(this.user);
   }
 
-  public get userValue() {
-    return this.userSubject.value;
+  getToken(): string {
+    if (this.user) return this.user.token;
+    return '';
+  }
+
+  isAuthenticated(): boolean {
+    console.log(this.user);
+    if (this.user) return true;
+    return false;
   }
 }
