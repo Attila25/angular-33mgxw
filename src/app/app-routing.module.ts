@@ -4,24 +4,6 @@ import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'events',
-    loadChildren: () =>
-      import('./events/events.module').then((m) => m.EventsModule),
-    canLoad: [AuthGuard],
-  },
-  {
-    path: 'books',
-    loadChildren: () =>
-      import('./books/books.module').then((m) => m.BooksModule),
-    canLoad: [AuthGuard],
-  },
-  {
-    path: 'authors',
-    loadChildren: () =>
-      import('./authors/authors.module').then((m) => m.AuthorsModule),
-    canLoad: [AuthGuard],
-  },
-  {
     path: 'teachers',
     loadChildren: () =>
       import('./teachers/teachers.module').then((m) => m.TeachersModule),

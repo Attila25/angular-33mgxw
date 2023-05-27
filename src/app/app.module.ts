@@ -21,9 +21,6 @@ import { AuthService } from './auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { EventsFeatureState } from './events/store/events.reducer';
-import { AuthorsFeatureState } from './authors/store/authors.reducer';
-import { BooksFeatureState } from './books/store/books.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TeachersFeatureState } from './teachers/store/teachers.reducer';
 import { SubjectsFeatureState } from './subjects/store/subjects.reducer';
@@ -32,9 +29,6 @@ import { SemestersFeatureState } from './semesters/store/semesters.reducer';
 import { LoginService } from './login/login.service';
 
 export interface AppState {
-  eventsFeature: EventsFeatureState;
-  authorsFeature: AuthorsFeatureState;
-  booksFeatur: BooksFeatureState;
   teacherFeature: TeachersFeatureState;
   subjectFeature: SubjectsFeatureState;
   studentFeature: StudentsFeatureState;
